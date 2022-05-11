@@ -76,7 +76,8 @@ const opeven = () => {
     num1 = result
 }
 const clear02 = () => {
-    num1 = 0;
+    num1 = undefined;
+    console.log(num1);
     return document.getElementById('result').value = "";
 }
 
