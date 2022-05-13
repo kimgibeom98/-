@@ -10,9 +10,10 @@
 </head>
 <style>
     body{margin: 0; padding: 0;}
-   .calculator{width: 300px; padding: 0 10px; height: 445px; background-color: #000;  margin: 20px auto 0; }
+   .calculator{width: 300px; padding: 0 10px; height: 490px; background-color: #000;  margin: 20px auto 0; }
    input{border: none;  margin: 2%; height: 60px; font-size: 23px; cursor: pointer; }
    input:focus { outline: none; }
+   #result02,
    #result{background-color: #000; width: 100%; box-sizing: border-box; text-align: right;  padding-right: 2%; color: white; margin: 0;}
    .num1-box{display: flex;}
    .num1-box > input:first-of-type{background-color:#a5a5a5; border-radius: 30px; width: 71%;}
@@ -27,6 +28,7 @@
 </style>
 <body>
     <div class="calculator">
+        <input type="text" id="result02">
         <input type="text" id="result">
         <div class="num1-box">
             <input type="button" value="AC" onclick="clear02()">
