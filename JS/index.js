@@ -1,6 +1,5 @@
 let oper ;
 let num1 ;
-let num3 ;
 
 const refucn = (ts) => {
     result.value += ts;
@@ -22,19 +21,19 @@ const opeven = () => {
         case '+' : result = Number(num1) + Number(num2)
         console.log(num1, num2);
         document.getElementById('result').value = result;
-        document.getElementById('result02').value = '';
+        document.getElementById('result02').value = result;
         break;
         case '-' : result = Number(num1) - Number(num2)
         document.getElementById('result').value = result;
-        document.getElementById('result02').value = '';
+        document.getElementById('result02').value = result;
         break;
         case 'X' : result = Number(num1) * Number(num2)
         document.getElementById('result').value = result;
-        document.getElementById('result02').value = '';
+        document.getElementById('result02').value = result;
         break;
         case '/' : result = Number(num1) / Number(num2)
         document.getElementById('result').value = result;
-        document.getElementById('result02').value = '';
+        document.getElementById('result02').value = result;
         break;
     }
     num1 = result
