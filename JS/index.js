@@ -5,11 +5,6 @@ let num3 ;
 const refucn = (ts) => {
     result.value += ts;
     result02.value += ts;
-    // if(num1 >= 0 || num1 <= 0){
-    //     num2 = ts;
-    //     console.log(num2);
-    //     return false
-    // }
 }
 
 const cal = (symbol) => {
