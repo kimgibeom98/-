@@ -1,6 +1,7 @@
 let oper ;
 let num1 ;
 
+
 const refucn = (ts) => {
     result.value += ts;
     result02.value += ts;
@@ -44,5 +45,6 @@ const clear02 = () => {
     console.log(num1);
     return document.getElementById('result').value = "";
 }
+
 
 
