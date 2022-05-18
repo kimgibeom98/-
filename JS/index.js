@@ -38,12 +38,14 @@ const opeven = () => {
         break;
     }
     num1 = result
+
 }
 
 const clear02 = () => {
     num1 = undefined;
     console.log(num1);
-    return document.getElementById('result').value = "";
+    document.getElementById('result').value = "";
+    return document.getElementById('result02').value = "";
 }
 
 
