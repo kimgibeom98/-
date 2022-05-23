@@ -1,7 +1,10 @@
+$(document).keydown(function(e){
+    var a = e.keyCode;
+    
+    refucn(a)
+})
 let oper ;
 let num1 ;
-
-
 const refucn = (ts) => {
     result.value += ts;
     result02.value += ts;
@@ -47,6 +50,7 @@ const clear02 = () => {
     document.getElementById('result').value = "";
     return document.getElementById('result02').value = "";
 }
+
 
 
 
