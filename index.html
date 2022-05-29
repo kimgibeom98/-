@@ -36,28 +36,29 @@
             <input class='op-cr' type='button' value='%' onclick="cal('/')">
         </div>
         <div class="num-box">
-            <input type="button" value="7" onclick="refucn(7)">
-            <input type="button" value="8" onclick="refucn(8)">
-            <input type="button" value="9" onclick="refucn(9)">
-            <input class="op-cr" type="button" value="x" onclick="cal('X')">
+            <input  type="button" value="7" onkeydown="keydn(7);" onclick="refucn(7);" >
+            <input  type="button" value="8" onkeydown="keydn(8);" onclick="refucn(8)">
+            <input  type="button" value="9" onkeydown="keydn(9);" onclick="refucn(9)">
+            <input  class="op-cr" type="button" value="x" onkeydown="keydn('X');" onclick="cal('X')">
         </div>
         <div class="num-box">
-            <input type="button" value="4" onclick="refucn(4)">
-            <input type="button" value="5" onclick="refucn(5)">
-            <input type="button" value="6" onclick="refucn(6)">
-            <input class="op-cr" type="button" value="-" onclick="cal('-')">
+            <input type="button" value="4"  onkeydown="keydn(4);" onclick="refucn(4)">
+            <input type="button" value="5"  onkeydown="keydn(5);" onclick="refucn(5)">
+            <input type="button" value="6"  onkeydown="keydn(6);" onclick="refucn(6)">
+            <input class="op-cr" type="button" value="-" onkeydown="keydn('-');" onclick="cal('-')">
         </div>
         <div class="num-box">
-            <input type="button" value="1" onclick="refucn(1)">
-            <input type="button" value="2" onclick="refucn(2)">
-            <input type="button" value="3" onclick="refucn(3)">
-            <input class="op-cr" type="button" value="+" onclick="cal('+')">
+            <input type="button" value="1" onkeydown="keydn(1);" onclick="refucn(1)">
+            <input type="button" value="2" onkeydown="keydn(2);" onclick="refucn(2)">
+            <input type="button" value="3" onkeydown="keydn(3);" onclick="refucn(3)">
+            <input class="op-cr" type="button" value="+" onkeydown="keydn('+');" onclick="cal('+')">
         </div>
         <div class='num2-box'>
-            <input type='button' value='0' onclick='refucn(0)'>
-            <input type='button' value='.' onclick="refucn('.')">
-            <input class='op-cr' type='button' value='='' onclick='opeven()'>
+            <input type='button' value='0' onkeydown="keydn(0);" onclick='refucn(0)'>
+            <input type='button' value='.' onkeydown="keydn('.');" onclick="refucn('.')">
+            <input class='op-cr' type='button' value='='' onkeydown="keydn('=');"  onclick='opeven()'>
         </div>
     </div>
+    
 </body>
 </html>

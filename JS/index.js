@@ -7,9 +7,15 @@ $(document).ready(function(){
     //     console.log(a);        
     // document.getElementById('view').innerHTML ="<div class='num2-box'> \n <input type='button' value='0' onclick='refucn(0)'> \n  <input type='button' value='.' onclick='refucn('.')''> \n  <input class='op-cr' type='button' value='='' onclick='opeven()'> \n </div>"
 
+    
 });
 
+const keydn = (e) =>{
 
+    result.value += e;
+    result02.value += e;
+
+}
 
 
 let oper ;
@@ -17,6 +23,7 @@ let num1 ;
 const refucn = (ts) => {
     result.value += ts;
     result02.value += ts;
+
 }
 
 const cal = (symbol) => {
@@ -55,7 +62,6 @@ const opeven = () => {
 
 const clear02 = () => {
     num1 = undefined;
-    console.log(num1);
     document.getElementById('result').value = "";
     return document.getElementById('result02').value = "";
 }
