@@ -7,16 +7,17 @@ $(document).ready(function(){
     //     console.log(a);        
     // document.getElementById('view').innerHTML ="<div class='num2-box'> \n <input type='button' value='0' onclick='refucn(0)'> \n  <input type='button' value='.' onclick='refucn('.')''> \n  <input class='op-cr' type='button' value='='' onclick='opeven()'> \n </div>"
 
-    
+    $("#view").keydown(function(e) {
+        console.log(e.keyCode) ;
+        switch(e.keyCode){
+            case 103 :  result.value += e;
+        }
+    });
 });
 
-const keydn = (e) =>{
+const valuemap  = [0,1,2,3,4,5,6,7,8,9,'-','*','+'];
 
-    result.value += e;
-    result02.value += e;
-
-}
-
+    
 
 let oper ;
 let num1 ;
@@ -25,6 +26,9 @@ const refucn = (ts) => {
     result02.value += ts;
 
 }
+
+
+
 
 const cal = (symbol) => {
     num1 = Number(document.getElementById("result").value);
