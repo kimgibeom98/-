@@ -6,30 +6,18 @@ $(document).ready(function(){
     //     const a = new Array(10).fill(false).map((_, index) => `<input type="text" value=${index} onclick="refucn(${index})"`)
     //     console.log(a);        
     // document.getElementById('view').innerHTML ="<div class='num2-box'> \n <input type='button' value='0' onclick='refucn(0)'> \n  <input type='button' value='.' onclick='refucn('.')''> \n  <input class='op-cr' type='button' value='='' onclick='opeven()'> \n </div>"
-
-    $("#view").keydown(function(e) {
-        alert(e.keyCode) ;
-        console.log(e)
-        switch(e.keyCode){
-            case 103 :  result.value += 7;
-            break;
-            case 104 :   result.value += 8;
-            break;
-            case 105 :   result.value += 9;
-            break;
-            case 88 :   result.value += 'X';
-            break;
-            case 100 :   result.value += 4;
-            break;
-            case 101 :   result.value += 5;
-            break;
-            case 102 :   result.value += 6;
-            break;
-        }
-    });
+    
 });
 
-// const valuemap  = [0,1,2,3,4,5,6,7,8,9,'-','*','+'];
+    document.addEventListener("keydown", (e) => {
+    
+        const valuemap  = [0,1,2,3,4,5,6,7,8,9,'-','*','+'];
+        const keye = valuemap.find(function(i){
+            return i === e
+        });
+        console.log(keye)
+    })
+
 
 let oper ;
 let num1 ;
