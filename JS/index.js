@@ -9,15 +9,28 @@ $(document).ready(function(){
     
 });
 
+    const arr = []
     document.addEventListener("keydown", (e) => {
         // console.log(e)
-        const valuemap  = [0,1,2,3,4,5,6,7,8,9,'-','*','+'];
+        const valuemap  = ["0","1","2","3","4","5","6","7","8","9",'-','*','+','Enter'];
         const keye = valuemap.find(function(i){
-            return i === Number(e.key)
+            return i === e.key
         });
-        console.log(keye)
-        result.value += keye;
-        result02.value += keye;
+        
+        if(keye){
+            console.log(keye)
+            arr.push(keye)
+            result.value += keye;
+            result02.value += keye;
+            if(keye === "Enter"){
+                const firstop =  arr.findIndex((i) => "*" || "/")
+                arr[firstop - 1] + arr[firsttop] + arr[firstop + 1]; 
+                
+                opeven();
+            }
+        }
+      
+        
     })
 
 
@@ -44,24 +57,21 @@ const opeven = () => {
     let num2 = parseFloat(document.getElementById("result").value);
     let result ;
     switch(oper){
-        case '+' : result = Number(num1) + Number(num2)
-        console.log(num1, num2);
-        document.getElementById('result').value = result;
-        document.getElementById('result02').value = result;
-        break;
-        case '-' : result = Number(num1) - Number(num2)
-        document.getElementById('result').value = result;
-        document.getElementById('result02').value = result;
-        break;
-        case 'X' : result = Number(num1) * Number(num2)
-        document.getElementById('result').value = result;
-        document.getElementById('result02').value = result;
-        break;
-        case '/' : result = Number(num1) / Number(num2)
-        document.getElementById('result').value = result;
-        document.getElementById('result02').value = result;
-        break;
+        case '+' :
+            result = Number(num1) + Number(num2)
+            break;
+        case '-' :
+            result = Number(num1) - Number(num2)
+            break;
+        case 'X' :
+            result = Number(num1) * Number(num2)
+            break;
+        case '/' :
+            result = Number(num1) / Number(num2)
+            break;
     }
+    document.getElementById('result').value = result;
+    document.getElementById('result02').value = result;
     num1 = result
 
 }
