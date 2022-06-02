@@ -12,7 +12,7 @@ $(document).ready(function(){
     const arr = []
     document.addEventListener("keydown", (e) => {
         // console.log(e)
-        const valuemap  = ["0","1","2","3","4","5","6","7","8","9",'-','*','+','Enter'];
+        const valuemap  = ["0","1","2","3","4","5","6","7","8","9",'-','*','/','+','Enter'];
         const keye = valuemap.find(function(i){
             return i === e.key
         });
@@ -20,14 +20,17 @@ $(document).ready(function(){
         if(keye){
             console.log(keye)
             arr.push(keye)
-            result.value += keye;
-            result02.value += keye;
+            console.log(arr)
             if(keye === "Enter"){
-                const firstop =  arr.findIndex((i) => "*" || "/")
+                const firstop =  arr.findIndex((item) => item === '*' || item === '/' );
                 arr[firstop - 1] + arr[firsttop] + arr[firstop + 1]; 
                 
                 opeven();
+                return false
             }
+            result.value += keye;
+            result02.value += keye;
+            
         }
       
         
