@@ -22,9 +22,9 @@ $(document).ready(function(){
             arr.push(keye)
             console.log(arr)
             if(keye === "Enter"){
-                const firstop =  arr.findIndex((item) => item === '*' || item === '/' );
-                arr[firstop - 1] + arr[firsttop] + arr[firstop + 1]; 
-                
+                const firstop =  arr.findIndex((item) => item === '*' || item === '/' ); /*곱하기 나누기 우선순위*/
+                const firarr =  arr.slice(arr[firstop - 1] + arr[firstop] + arr[firstop + 1]);  /*특정 부분 빼서 연산하기*/
+                console.log(firarr)
                 opeven();
                 return false
             }
