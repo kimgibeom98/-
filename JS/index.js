@@ -3,34 +3,39 @@ $(document).ready(function(){
 
     // document.getElementById('view').innerHTML = "<input type='text' id='result02'> \n  <input type='text' id='result'> \n   <div class='num1-box'>\n  <input type='button' value='AC' onclick='clear02()'> \n  <input class='op-cr' type='button' value='%' onclick='cal('/')''>\n</div>"
    
-    //     const a = new Array(10).fill(false).map((_, index) => `<input type="text" value=${index} onclick="refucn(${index})"`)
-    //     console.log(a);        
+    //     const a = new Array(10).fill(false).map((_, index) => `<input type="text" value=${index} onclick="refucn(${index})"`)       
     // document.getElementById('view').innerHTML ="<div class='num2-box'> \n <input type='button' value='0' onclick='refucn(0)'> \n  <input type='button' value='.' onclick='refucn('.')''> \n  <input class='op-cr' type='button' value='='' onclick='opeven()'> \n </div>"
     
 });
 
     const arr = []
     document.addEventListener("keydown", (e) => {
-        // console.log(e)
         const valuemap  = ["0","1","2","3","4","5","6","7","8","9",'-','*','/','+','Enter'];
         const keye = valuemap.find(function(i){
             return i === e.key
         });
         
         if(keye){
-            console.log(keye)
             arr.push(keye)
-            console.log(arr)
             if(keye === "Enter"){
                 const firstop =  arr.findIndex((item) => item === '*' || item === '/' ); /*곱하기 나누기 우선순위*/
-                const firarr =  arr.slice(arr[firstop - 1] + arr[firstop] + arr[firstop + 1]);  /*특정 부분 빼서 연산하기*/
-                console.log(firarr)
+                /* const firarr =  arr.slice(arr[firstop - 1] + arr[firstop] + arr[firstop + 1]);  특정 부분 빼서 연산하기*/
+                const firarr =  arr.splice(firstop - 1, firstop + 2);  
+                firarr.splice(-1,1).join('');
+                const total =[]
+                if(firarr[1] === '*'){
+                    total.push( Number(firarr[0]) * Number(firarr[2]));
+                }else if(firarr[1] === '/'){
+                    total.push(Number(firarr[0]) / Number(firarr[2]));
+                }
+                arr.push(total[0]);
+                console.log(arr)
+
                 opeven();
                 return false
             }
             result.value += keye;
             result02.value += keye;
-            
         }
       
         
