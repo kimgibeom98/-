@@ -22,6 +22,7 @@ $(document).ready(function(){
                 /* const firarr =  arr.slice(arr[firstop - 1] + arr[firstop] + arr[firstop + 1]);  특정 부분 빼서 연산하기*/
                 const firarr =  arr.splice(firstop - 1, firstop + 2);  
                 firarr.splice(-1,1).join('');
+                // console.log(firarr)
                 const total =[]
                 if(firarr[1] === '*'){
                     total.push( Number(firarr[0]) * Number(firarr[2]));
@@ -31,13 +32,29 @@ $(document).ready(function(){
                 arr.push(total[0]);
                 console.log(arr)
 
+                
                 opeven();
                 return false
             }
             result.value += keye;
             result02.value += keye;
         }
-      
+      for(let i = 0; i < arr.length; i++){
+        switch(arr[i]){
+            case '+' :
+                result = Number(num1) + Number(num2)
+                break;
+            case '-' :
+                result = Number(num1) - Number(num2)
+                break;
+            case 'X' :
+                result = Number(num1) * Number(num2)
+                break;
+            case '/' :
+                result = Number(num1) / Number(num2)
+                break;
+        }
+      }
         
     })
 
