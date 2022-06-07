@@ -9,6 +9,7 @@ $(document).ready(function(){
 });
 
     const arr = []
+    const arr2 = []
     document.addEventListener("keydown", (e) => {
         const valuemap  = ["0","1","2","3","4","5","6","7","8","9",'-','*','/','+','Enter'];
         const keye = valuemap.find(function(i){
@@ -16,7 +17,15 @@ $(document).ready(function(){
         });
         
         if(keye){
-            arr.push(keye)
+            arr2.push(keye)
+            for(let i = 0; i < arr2.length; i++){
+                if(i % 2 == 0){
+                    arr.push(Number(arr2[i]))
+                }else{
+                    arr.push(arr2[i])
+                }
+            }
+            // console.log(arr2)
             console.log(arr)
             if(keye === "Enter"){
                 var j = 0;
