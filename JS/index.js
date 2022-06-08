@@ -9,30 +9,16 @@ $(document).ready(function(){
 });
 
     const arr = []
-    const arr2 = []
     document.addEventListener("keydown", (e) => {
         const valuemap  = ["0","1","2","3","4","5","6","7","8","9",'-','*','/','+','Enter'];
         const keye = valuemap.find(function(i){
             return i === e.key
         });
         
+        
         if(keye){
-            arr2.push(keye)
-            console.log(arr2)
-            for(let i = 0; i < arr2.length; i++){
-                if(i % 2 === 0){
-                    arr.push(Number(arr2[i]))
-                }else if(i % 2 === 1){
-                    arr.push(arr2[i])
-                }
-            }
-            // console.log(arr2)
-            console.log(arr)
+            arr.push(['-','*','/','+','Enter'].includes(keye) ? keye : Number(keye))
             if(keye === "Enter"){
-                var j = 0;
-                while(arr[j] ==='*' || arr[j] ==='/'){
-                    j++;
-                    console.log(123)
                     const firstop =  arr.findIndex((item) => item === '*' || item === '/' ); /*곱하기 나누기 우선순위*/
                     /* const firarr =  arr.slice(arr[firstop - 1] + arr[firstop] + arr[firstop + 1]);  특정 부분 빼서 연산하기*/
                     const firarr =  arr.splice(firstop - 1, firstop + 2);  
@@ -45,13 +31,7 @@ $(document).ready(function(){
                         total.push(Number(firarr[0]) / Number(firarr[2]));
                     }
                     arr.push(total[0]);
-                }
-                // for(let i = 0; i < arr.length; i++){
-                //     if(arr[i] === '*' || arr[i] === '/'){
-                      
-                //     }
-                // }
-                
+                console.log(arr)
                
                 
                 opeven();
