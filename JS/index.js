@@ -33,7 +33,24 @@ $(document).ready(function(){
                     arr.push(total[0]);
                 console.log(arr)
                
-                
+                const fiindex = arr.findIndex((i) => ['-','*','/','+','Enter'].includes(i))
+                const [fir, op, la] = arr.splice(fiindex - 1, fiindex + 2)
+                console.log(fir, op, la)
+                switch(op){
+                    case '+' :
+                        result = fir + la;
+                        break;
+                    case '-' :
+                        result = fir - la;
+                        break;
+                    case '*' :
+                        result = fir * la;
+                        break;
+                    case '/' :
+                        result = fir / la;
+                        break;
+
+                }
                 opeven();
                
             }
