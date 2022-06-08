@@ -18,10 +18,11 @@ $(document).ready(function(){
         
         if(keye){
             arr2.push(keye)
+            console.log(arr2)
             for(let i = 0; i < arr2.length; i++){
-                if(i % 2 == 0){
+                if(i % 2 === 0){
                     arr.push(Number(arr2[i]))
-                }else{
+                }else if(i % 2 === 1){
                     arr.push(arr2[i])
                 }
             }
