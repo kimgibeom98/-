@@ -35,7 +35,6 @@ $(document).ready(function(){
                
                 const fiindex = arr.findIndex((i) => ['-','*','/','+','Enter'].includes(i))
                 const [fir, op, la] = arr.splice(fiindex - 1, fiindex + 2)
-                console.log(fir, op, la)
                 switch(op){
                     case '+' :
                         result = fir + la;
@@ -51,7 +50,8 @@ $(document).ready(function(){
                         break;
 
                 }
-                opeven();
+                document.getElementById('result').value = result;
+                // opeven();
                
             }
             result.value += keye;
