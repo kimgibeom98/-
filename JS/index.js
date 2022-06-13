@@ -17,12 +17,15 @@ $(document).ready(function(){
         
         
         if(keye){
+            result.value += keye;
+            result02.value += keye;
             arr.push(['-','*','/','+','Enter'].includes(keye) ? keye : Number(keye))
             if(keye === "Enter"){
+                const j = arr.length;
+                while(arr[j] === '*' || arr[j] === '/' ){
                     const firstop =  arr.findIndex((item) => item === '*' || item === '/' ); /*곱하기 나누기 우선순위*/
                     const firarr =  arr.splice(firstop - 1, firstop + 2);  
                     firarr.splice(-1,1).join('');
-                    console.log(firarr);
                     const total =[]
                     if(firarr[1] === '*'){
                         total.push( Number(firarr[0]) * Number(firarr[2]));
@@ -30,6 +33,8 @@ $(document).ready(function(){
                         total.push(Number(firarr[0]) / Number(firarr[2]));
                     }
                     arr.push(total[0]);
+                    j--;
+                }
                 console.log(arr)
                
                 const fiindex = arr.findIndex((i) => ['-','*','/','+','Enter'].includes(i))
@@ -51,30 +56,9 @@ $(document).ready(function(){
                 }
                 document.getElementById('result').value = result;
                 document.getElementById('result02').value = result;
-       
-               
             }
-            result.value += keye;
-            result02.value += keye;
-        }
-    //   for(let i = 0; i < arr.length; i++){
-    //     switch(arr[i]){
-    //         case '+' :
-    //             result
-    //              = Number(num1) + Number(num2)
-    //             break;
-    //         case '-' :
-    //             result = Number(num1) - Number(num2)
-    //             break;
-    //         case 'X' :
-    //             result = Number(num1) * Number(num2)
-    //             break;
-    //         case '/' :
-    //             result = Number(num1) / Number(num2)
-    //             break;
-    //     }
-    //   }
-        
+           
+        } 
     })
 
 
