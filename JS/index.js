@@ -20,10 +20,9 @@ $(document).ready(function(){
             arr.push(['-','*','/','+','Enter'].includes(keye) ? keye : Number(keye))
             if(keye === "Enter"){
                     const firstop =  arr.findIndex((item) => item === '*' || item === '/' ); /*곱하기 나누기 우선순위*/
-                    /* const firarr =  arr.slice(arr[firstop - 1] + arr[firstop] + arr[firstop + 1]);  특정 부분 빼서 연산하기*/
                     const firarr =  arr.splice(firstop - 1, firstop + 2);  
                     firarr.splice(-1,1).join('');
-                    // console.log(firarr)
+                    console.log(firarr);
                     const total =[]
                     if(firarr[1] === '*'){
                         total.push( Number(firarr[0]) * Number(firarr[2]));
@@ -51,7 +50,8 @@ $(document).ready(function(){
 
                 }
                 document.getElementById('result').value = result;
-                // opeven();
+                document.getElementById('result02').value = result;
+       
                
             }
             result.value += keye;
