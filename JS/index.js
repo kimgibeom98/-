@@ -5,39 +5,37 @@ $(document).ready(function(){
    
     //     const a = new Array(10).fill(false).map((_, index) => `<input type="text" value=${index} onclick="refucn(${index})"`)       
     // document.getElementById('view').innerHTML ="<div class='num2-box'> \n <input type='button' value='0' onclick='refucn(0)'> \n  <input type='button' value='.' onclick='refucn('.')''> \n  <input class='op-cr' type='button' value='='' onclick='opeven()'> \n </div>"
-    
-});
 
+});
     const arr = []
     document.addEventListener("keydown", (e) => {
         const valuemap  = ["0","1","2","3","4","5","6","7","8","9",'-','*','/','+','Enter'];
         const keye = valuemap.find(function(i){
             return i === e.key
         });
-        
-        
         if(keye){
             result.value += keye;
             result02.value += keye;
             arr.push(['-','*','/','+','Enter'].includes(keye) ? keye : Number(keye))
             if(keye === "Enter"){
-                const j = arr.length;
-                while(arr[j] === '*' || arr[j] === '/' ){
-                    const firstop =  arr.findIndex((item) => item === '*' || item === '/' ); /*곱하기 나누기 우선순위*/
-                    const firarr =  arr.splice(firstop - 1, firstop + 2);  
-                    firarr.splice(-1,1).join('');
-                    const total =[]
-                    if(firarr[1] === '*'){
-                        total.push( Number(firarr[0]) * Number(firarr[2]));
-                    }else if(firarr[1] === '/'){
-                        total.push(Number(firarr[0]) / Number(firarr[2]));
+                for(let j = 0; j < arr.length; j++){
+                    if(arr[j] === '*' || arr[j] === '/' ){
+                        const firarr =  arr.splice(j - 1, j + 2); 
+                        firarr.splice(-1,1);
+                        const fiindex = firarr.findIndex((i) => ['*','/'].includes(i))
+                        const [fir, op, la] = firarr.splice(fiindex - 1, fiindex + 2)
+                        switch(op){
+                            case '*' :
+                                arr.push(fir * la);
+                                break;
+                            case '/' :
+                                arr.push(fir / la);
+                                break;
+                
+                        }
                     }
-                    arr.push(total[0]);
-                    j--;
                 }
-                console.log(arr)
-               
-                const fiindex = arr.findIndex((i) => ['-','*','/','+','Enter'].includes(i))
+                const fiindex = arr.findIndex((i) => ['-','+'].includes(i))
                 const [fir, op, la] = arr.splice(fiindex - 1, fiindex + 2)
                 switch(op){
                     case '+' :
@@ -46,13 +44,7 @@ $(document).ready(function(){
                     case '-' :
                         result = fir - la;
                         break;
-                    case '*' :
-                        result = fir * la;
-                        break;
-                    case '/' :
-                        result = fir / la;
-                        break;
-
+        
                 }
                 document.getElementById('result').value = result;
                 document.getElementById('result02').value = result;
@@ -61,27 +53,23 @@ $(document).ready(function(){
         } 
     })
 
-
 let oper ;
 let num1 ;
-const refucn = (ts) => {
-    result.value += ts;
-    result02.value += ts;
+const show = (tx) => {
+    result.value += tx;
+    result02.value += tx;
 
 }
 
-
-
-
-const cal = (symbol) => {
+const operator = (op) => {
     num1 = Number(document.getElementById("result").value);
     console.log(num1)
-    oper = symbol;
-    result02.value += symbol;
+    oper = op;
+    result02.value += op;
     return document.getElementById("result").value = "";
 }
 
-const opeven = () => {
+const calculate = () => {
     let num2 = parseFloat(document.getElementById("result").value);
     let result ;
     switch(oper){
@@ -104,7 +92,7 @@ const opeven = () => {
 
 }
 
-const clear02 = () => {
+const clear = () => {
     num1 = undefined;
     document.getElementById('result').value = "";
     return document.getElementById('result02').value = "";
