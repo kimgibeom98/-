@@ -5,15 +5,17 @@ $(document).ready(function () {
 
   //     const a = new Array(10).fill(false).map((_, index) => `<input type="text" value=${index} onclick="refucn(${index})"`)       
   // document.getElementById('view').innerHTML ="<div class='num2-box'> \n <input type='button' value='0' onclick='refucn(0)'> \n  <input type='button' value='.' onclick='refucn('.')''> \n  <input class='op-cr' type='button' value='='' onclick='opeven()'> \n </div>"
-
 });
 const arr = []
-const temp = [];
+let temp = [];
+
 document.addEventListener("keydown", (e) => {
   const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', 'Enter'];
   const keye = valuemap.find(function (i) {
     return i === e.key
   });
+
+ 
 
   if (keye) {
     result.value += keye;
@@ -21,50 +23,83 @@ document.addEventListener("keydown", (e) => {
 
     if (['-', '*', '/', '+', 'Enter'].includes(keye)) {
       arr.push(Number(temp.join("")), keye);
-    } else {
+      temp = [];
+    }else {
       temp.push(keye);
     }
 
+    
+    const plusminer = () => {
+      for(let i = 0; i < arr.length; i++){
+        if(arr[i] === '+' || arr[i] === '-' ){
+          console.log(arr)
+          return true;
+        }
+      }
+      return false;
+    }
 
     if (keye === "Enter") {
       for (let j = 0; j < arr.length; j++) {
         if (arr[j] === '*' || arr[j] === '/') {
           const firarr = arr.splice(j - 1, j + 2);
-          firarr.splice(-1, 1);
           const firstCaseIndex = firarr.findIndex((i) => ['*', '/'].includes(i))
           const [fir, op, la] = firarr.splice(firstCaseIndex - 1, firstCaseIndex + 2)
-        //   switch (op) {
-        //     case '*': b
-        //       arr.push(fir * la);
-        //       break;
-        //     case '/':
-        //       arr.push(fir / la);
-        //       break;
-        //   }
-          arr.push(op === "*" ? fir * la : fir / la);
+          console.log([fir, op, la])
+          console.log(arr)
+          if(plusminer()){
+            switch (op) {
+              case '*':
+                arr.push(fir * la);
+                break;
+              case '/':
+                arr.push(fir / la);
+                break;
+            }
+          }else{
+            switch (op) {
+              case '*':
+                result = fir * la;
+                break;
+              case '/':
+                result = fir / la;
+                break;
+            }
+            render(result)
+          }
+          // arr.push(op === '*' ? fir * la : fir / la);
         }
       }
-      const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
+      
+      const secondCaseIndex = arr.findIndex((i) => ['-', '+','*', '/'].includes(i));
       const [fir, op, la] = arr.splice(secondCaseIndex - 1, secondCaseIndex + 2);
-    //   switch (op) {
-    //     case '+':
-    //       result = fir + la;
-    //       break;
-    //     case '-':
-    //       result = fir - la;
-    //       break;
+      switch (op) {
+        case '+':
+          result = fir + la;
+          break;
+        case '-':
+          result = fir - la;
+          break;
+        case '*':
+          result = fir * la;
+          break;
+        case '/':
+          result = fir / la;
+          break;
 
-    //   }
-    arr.push(op === "+" ? fir + la : fir - la);
-      render()
+      }
+      // arr.push(op === '+' ? fir + la : fir - la);
+      render(result)
     }
 
   }
 })
-function render() {
-  document.getElementById('result').value = result;
-  document.getElementById('result02').value = result;
+
+function render(to) {
+  document.getElementById('result').value = to;
+  document.getElementById('result02').value = to;
 }
+
 let oper;
 let num1;
 const show = (tx) => {
@@ -98,17 +133,14 @@ const calculate = () => {
       result = Number(num1) / Number(num2)
       break;
   }
-  render();
+  render(result);
   num1 = result
 
 }
 
 function clearInputField() {
-//   console.log(document.getElementById('result').value);
   num1 = undefined;
-  console.log(document.getElementById('result').value);
-  document.getElementById('result').value = "22";
-  console.log(document.getElementById('result').value);
-  document.getElementById('result02').value = "";
+  document.getElementById('result').value = "";
+  return document.getElementById('result02').value = "";
 
 }
