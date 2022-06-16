@@ -32,7 +32,6 @@ document.addEventListener("keydown", (e) => {
     const plusminer = () => {
       for(let i = 0; i < arr.length; i++){
         if(arr[i] === '+' || arr[i] === '-' ){
-          console.log(arr)
           return true;
         }
       }
@@ -40,64 +39,37 @@ document.addEventListener("keydown", (e) => {
     }
 
     if (keye === "Enter") {
-      for (let j = 0; j < arr.length; j++) {
-        if (arr[j] === '*' || arr[j] === '/') {
-          const firarr = arr.splice(j - 1, j + 2);
-          const firstCaseIndex = firarr.findIndex((i) => ['*', '/'].includes(i))
-          const [fir, op, la] = firarr.splice(firstCaseIndex - 1, firstCaseIndex + 2)
-          console.log([fir, op, la])
-          console.log(arr)
-          if(plusminer()){
-            switch (op) {
-              case '*':
-                arr.push(fir * la);
-                break;
-              case '/':
-                arr.push(fir / la);
-                break;
-            }
-          }else{
-            switch (op) {
-              case '*':
-                result = fir * la;
-                break;
-              case '/':
-                result = fir / la;
-                break;
-            }
-            render(result)
+      while (true) {
+          const firstCaseIndex = arr.findIndex((i) => ['*', '/'].includes(i))
+          if(firstCaseIndex === -1){
+            break;
           }
-          // arr.push(op === '*' ? fir * la : fir / la);
+          const firarr = arr.splice(firstCaseIndex - 1, firstCaseIndex + 2);
+          const [fir, op, la] = firarr;
+          if(plusminer()){
+              arr.push(op === '*' ? fir * la : fir / la);
+          }else{
+            result = (op === '*' ? fir * la : fir / la);
+            render(result)
         }
       }
-      
-      const secondCaseIndex = arr.findIndex((i) => ['-', '+','*', '/'].includes(i));
-      const [fir, op, la] = arr.splice(secondCaseIndex - 1, secondCaseIndex + 2);
-      switch (op) {
-        case '+':
-          result = fir + la;
-          break;
-        case '-':
-          result = fir - la;
-          break;
-        case '*':
-          result = fir * la;
-          break;
-        case '/':
-          result = fir / la;
-          break;
+      if(plusminer()){
+        const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
+        const [fir, op, la] = arr.splice(secondCaseIndex - 1, secondCaseIndex + 2);
 
+        result = (op === '+' ? fir + la : fir - la);
+        render(result)
       }
-      // arr.push(op === '+' ? fir + la : fir - la);
-      render(result)
     }
 
   }
 })
 
 function render(to) {
-  document.getElementById('result').value = to;
-  document.getElementById('result02').value = to;
+  console.log(to)
+  document.getElementById('result').value = Number(to);
+  // console.log(document.getElementById('result').value = Number(to));
+  document.getElementById('result02').value = Number(to);
 }
 
 let oper;
@@ -110,7 +82,6 @@ const show = (tx) => {
 
 const operator = (op) => {
   num1 = Number(document.getElementById("result").value);
-  console.log(num1)
   oper = op;
   result02.value += op;
   return document.getElementById("result").value = "";
