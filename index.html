@@ -33,30 +33,30 @@
         <input type='text' id='result'>
         <div class='num1-box'>
             <input type='button' value='AC' onclick="clearInputField()"> 
-            <input class='op-cr' type='button' value='%' onclick="operator('/')">
+            <input class='op-cr' type='button' value='%' onclick="operatorOverwrite('/')">
         </div>
         <div class="num-box">
-            <input  type="button" value="7" onclick="show(7)">
-            <input  type="button" value="8" onclick="show(8)">
-            <input  type="button" value="9" onclick="show(9)">
-            <input  class="op-cr" type="button" value="x" onkeydown="keydn('X');" onclick="operator('X')">
+            <input  type="button" value="7" onclick="showOverwrite(7)">
+            <input  type="button" value="8" onclick="showOverwrite(8)">
+            <input  type="button" value="9" onclick="showOverwrite(9)">
+            <input  class="op-cr" type="button" value="x" onkeydown="keydn('X');" onclick="operatorOverwrite('X')">
         </div>
         <div class="num-box">
-            <input type="button" value="4"  onclick="show(4)">
-            <input type="button" value="5"  onclick="show(5)">
-            <input type="button" value="6"  onclick="show(6)">
-            <input class="op-cr" type="button" value="-" onclick="operator('-')">
+            <input type="button" value="4"  onclick="showOverwrite(4)">
+            <input type="button" value="5"  onclick="showOverwrite(5)">
+            <input type="button" value="6"  onclick="showOverwrite(6)">
+            <input class="op-cr" type="button" value="-" onclick="operatorOverwrite('-')">
         </div>
         <div class="num-box">
-            <input type="button" value="1" onclick="show(1)">
-            <input type="button" value="2" onclick="show(2)">
-            <input type="button" value="3" onclick="show(3)">
-            <input class="op-cr" type="button" value="+"onclick="operator('+')">
+            <input type="button" value="1" onclick="showOverwrite(1)">
+            <input type="button" value="2" onclick="showOverwrite(2)">
+            <input type="button" value="3" onclick="showOverwrite(3)">
+            <input class="op-cr" type="button" value="+"onclick="operatorOverwrite('+')">
         </div>
         <div class='num2-box'>
-            <input type='button' value='0' onclick="show(0)">
-            <input type='button' value='.' onclick="show('.')">
-            <input class='op-cr' type='button' value='=' onclick='calculate()'>
+            <input type='button' value='0' onclick="showOverwrite(0)">
+            <input type='button' value='.' onclick="showOverwrite('.')">
+            <input class='op-cr' type='button' value='=' onclick='mouseCalculate()'>
         </div>
     </div>
     

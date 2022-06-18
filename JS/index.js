@@ -8,6 +8,7 @@ $(document).ready(function () {
 });
 const arr = []
 let temp = [];
+let temp2 = []
 
 document.addEventListener("keydown", (e) => {
   const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', 'Enter'];
@@ -29,7 +30,7 @@ document.addEventListener("keydown", (e) => {
     }
 
     
-    const plusminer = () => {
+    const checkPlusminer = () => {
       for(let i = 0; i < arr.length; i++){
         if(arr[i] === '+' || arr[i] === '-' ){
           return true;
@@ -39,6 +40,7 @@ document.addEventListener("keydown", (e) => {
     }
 
     if (keye === "Enter") {
+      arr.splice(-1,1)
       while (true) {
           const firstCaseIndex = arr.findIndex((i) => ['*', '/'].includes(i))
           if(firstCaseIndex === -1){
@@ -46,27 +48,35 @@ document.addEventListener("keydown", (e) => {
           }
           const firarr = arr.splice(firstCaseIndex - 1, firstCaseIndex + 2);
           const [fir, op, la] = firarr;
-          if(plusminer()){
-              arr.push(op === '*' ? fir * la : fir / la);
+          if(checkPlusminer()){     
+            // console.log(arr)     
+            arr.push(op === '*' ? fir * la : fir / la);
           }else{
             result = (op === '*' ? fir * la : fir / la);
-            render(result)
+            viewResult(result)
         }
       }
-      if(plusminer()){
+      if(checkPlusminer()){
+        for(let i = 0; i< arr.length; i++){
+          if(arr[i] === '+' || arr[i] === '-'){
+
+          }else{
+            temp2.push(arr[i])
+          }
+          result = (arr[i] === '+' ? temp2.map(x => x + x) : temp2.map(x => x - x))
+        }
         const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
         const [fir, op, la] = arr.splice(secondCaseIndex - 1, secondCaseIndex + 2);
 
         result = (op === '+' ? fir + la : fir - la);
-        render(result)
+        viewResult(result)
       }
     }
 
   }
 })
 
-function render(to) {
-  console.log(to)
+function viewResult(to) {
   document.getElementById('result').value = Number(to);
   // console.log(document.getElementById('result').value = Number(to));
   document.getElementById('result02').value = Number(to);
@@ -74,20 +84,20 @@ function render(to) {
 
 let oper;
 let num1;
-const show = (tx) => {
+const showOverwrite = (tx) => {
   result.value += tx;
   result02.value += tx;
 
 }
 
-const operator = (op) => {
+const operatorOverwrite = (op) => {
   num1 = Number(document.getElementById("result").value);
   oper = op;
   result02.value += op;
   return document.getElementById("result").value = "";
 }
 
-const calculate = () => {
+const mouseCalculate = () => {
   const num2 = parseFloat(document.getElementById("result").value);
   let result;
   switch (oper) {
@@ -104,7 +114,7 @@ const calculate = () => {
       result = Number(num1) / Number(num2)
       break;
   }
-  render(result);
+  viewResult(result);
   num1 = result
 
 }
