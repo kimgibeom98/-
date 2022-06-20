@@ -15,9 +15,11 @@ document.addEventListener("keydown", (e) => {
   const keye = valuemap.find(function (i) {
     return i === e.key
   });
+  calculateKey(keye);
+    
+})
 
- 
-
+function calculateKey(keye){
   if (keye) {
     result.value += keye;
     result02.value += keye;
@@ -28,8 +30,6 @@ document.addEventListener("keydown", (e) => {
     }else {
       temp.push(keye);
     }
-
-    
     const checkPlusminer = () => {
       for(let i = 0; i < arr.length; i++){
         if(arr[i] === '+' || arr[i] === '-' ){
@@ -38,47 +38,52 @@ document.addEventListener("keydown", (e) => {
       }
       return false;
     }
-
-    if (keye === "Enter") {
-      arr.splice(-1,1)
-      while (true) {
-          const firstCaseIndex = arr.findIndex((i) => ['*', '/'].includes(i))
-          if(firstCaseIndex === -1){
-            break;
+    
+      if (keye === "Enter") {
+        arr.splice(-1,1)
+        while (true){
+            const firstCaseIndex = arr.findIndex((i) => ['*', '/'].includes(i))
+            if(firstCaseIndex === -1){
+              break;
+            }
+            console.log(arr);
+            const firarr = arr.splice(firstCaseIndex - 1, firstCaseIndex + 2);
+            console.log(firarr)
+            console.log(arr);
+            const [fir, op, la] = firarr;
+            if(checkPlusminer()){      
+              arr.push(op === '*' ? fir * la : fir / la);
+              // console.log(arr);
+            }else{
+              result = (op === '*' ? fir * la : fir / la);
+              viewResult(result)
           }
-          const firarr = arr.splice(firstCaseIndex - 1, firstCaseIndex + 2);
-          const [fir, op, la] = firarr;
-          if(checkPlusminer()){     
-            // console.log(arr)     
-            arr.push(op === '*' ? fir * la : fir / la);
-          }else{
-            result = (op === '*' ? fir * la : fir / la);
-            viewResult(result)
+        }
+        if(checkPlusminer()){
+          for(let i = 0; i< arr.length; i++){
+            if(arr[i] === '+' || arr[i] === '-'){
+
+            }else{
+              // console.log(arr)
+              temp2.push(arr[i])
+              // console.log(temp2)
+            }
+          }
+          const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
+          // console.log(temp2)
+          result = (arr[secondCaseIndex] === '+' ? temp2.reduce((previousValue,currentValue) => previousValue + currentValue) : temp2.reduce((previousValue,currentValue) => previousValue - currentValue))
+      
+          // if(){
+            
+          // }
+          viewResult(result)
         }
       }
-      if(checkPlusminer()){
-        for(let i = 0; i< arr.length; i++){
-          if(arr[i] === '+' || arr[i] === '-'){
-
-          }else{
-            temp2.push(arr[i])
-          }
-          result = (arr[i] === '+' ? temp2.map(x => x + x) : temp2.map(x => x - x))
-        }
-        const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
-        const [fir, op, la] = arr.splice(secondCaseIndex - 1, secondCaseIndex + 2);
-
-        result = (op === '+' ? fir + la : fir - la);
-        viewResult(result)
-      }
-    }
-
   }
-})
+}
 
 function viewResult(to) {
   document.getElementById('result').value = Number(to);
-  // console.log(document.getElementById('result').value = Number(to));
   document.getElementById('result02').value = Number(to);
 }
 
