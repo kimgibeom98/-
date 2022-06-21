@@ -38,7 +38,6 @@ function calculateKey(keye){
       }
       return false;
     }
-    
       if (keye === "Enter") {
         arr.splice(-1,1)
         while (true){
@@ -46,14 +45,15 @@ function calculateKey(keye){
             if(firstCaseIndex === -1){
               break;
             }
-            console.log(arr);
-            const firarr = arr.splice(firstCaseIndex - 1, firstCaseIndex + 2);
-            console.log(firarr)
-            console.log(arr);
+            let firarr;
+            if(arr[1] === "*" || arr[1] === "/"){
+              firarr = arr.splice(firstCaseIndex - 1, firstCaseIndex + 2);
+            }else{
+              firarr = arr.splice(firstCaseIndex - 1, firstCaseIndex + 1);
+            }
             const [fir, op, la] = firarr;
             if(checkPlusminer()){      
               arr.push(op === '*' ? fir * la : fir / la);
-              // console.log(arr);
             }else{
               result = (op === '*' ? fir * la : fir / la);
               viewResult(result)
@@ -64,13 +64,10 @@ function calculateKey(keye){
             if(arr[i] === '+' || arr[i] === '-'){
 
             }else{
-              // console.log(arr)
               temp2.push(arr[i])
-              // console.log(temp2)
             }
           }
           const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
-          // console.log(temp2)
           result = (arr[secondCaseIndex] === '+' ? temp2.reduce((previousValue,currentValue) => previousValue + currentValue) : temp2.reduce((previousValue,currentValue) => previousValue - currentValue))
       
           // if(){
