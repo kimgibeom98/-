@@ -7,10 +7,10 @@ document.addEventListener("keydown", (e) => {
       return i === e.key
     });
     if(keye){
-        insertKey(keye);
-        calculaterResult(keye)
         result.value += keye;
         result02.value += keye;
+        insertKey(keye);
+        calculaterResult(keye)
     }
 })
 
@@ -57,6 +57,7 @@ function repeatMultiplydivision(){
               break;
             }
         let firarr = arr.splice(firstCaseIndex -1 ,3);
+        console.log(firarr);
         const [fir, op, la] = firarr
         if(hasPlusminers()){      
             arr.push(op === '*' ? fir * la : fir / la);
@@ -65,6 +66,26 @@ function repeatMultiplydivision(){
             viewResult(result)
         }
     }
+    calculatePlusminers();
+
+}
+
+// 더하기 연산
+function calculatePlusminers(){
+    if(hasPlusminers()){
+        for(let i = 0; i< arr.length; i++){
+          if(arr[i] === '+' || arr[i] === '-'){
+
+          }else{
+            cnsctNmbrs.push(arr[i])
+          }
+        }
+        const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
+        result = (arr[secondCaseIndex] === '+' 
+        ? cnsctNmbrs.reduce((previousValue,currentValue) => previousValue + currentValue) 
+        : cnsctNmbrs.reduce((previousValue,currentValue) => previousValue - currentValue))
+        viewResult(result)
+      }
 }
 
 // enter 눌렀을때 연산시작
