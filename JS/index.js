@@ -1,5 +1,6 @@
 const arr =[];
 let cnsctNmbrs = [];
+let multiplydivision = []
 
 document.addEventListener("keydown", (e) => {
     const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', 'Enter'];
@@ -57,13 +58,18 @@ function repeatMultiplydivision(){
               break;
             }
         let firarr = arr.splice(firstCaseIndex -1 ,3);
-        console.log(firarr);
         const [fir, op, la] = firarr
         if(hasPlusminers()){      
             arr.push(op === '*' ? fir * la : fir / la);
         }else if(hasMultiplydivision()){
-            result = (op === '*' ? fir * la : fir / la);
+          result = (op === '*' ? fir * la : fir / la);
+          // 연속곱하기일때 들어가야하는 조건 추가
+          if(hasMultiplydivision()){
+            calculateMultiplydivision();
+            // result값과 arr값을 모두 더해주는 코드 추가 reduce
+          }else{
             viewResult(result)
+          }
         }
     }
     calculatePlusminers();
@@ -86,6 +92,22 @@ function calculatePlusminers(){
         : cnsctNmbrs.reduce((previousValue,currentValue) => previousValue - currentValue))
         viewResult(result)
       }
+}
+
+//곱하기 연산
+function calculateMultiplydivision(){
+  for(let i = 0; i< arr.length; i++){
+    if(arr[i] === '*' || arr[i] === '/'){
+
+    }else{
+      multiplydivision.push(arr[i])
+    }
+  }
+  const findmultiply = arr.findIndex((i) => ['*', '/'].includes(i));
+  result = (arr[findmultiply] === '*' 
+  ? multiplydivision.reduce((previousValue02,currentValue02) => previousValue02 * currentValue02) 
+  : multiplydivision.reduce((previousValue02,currentValue02) => previousValue02 / currentValue02))
+  viewResult(result)
 }
 
 // enter 눌렀을때 연산시작
