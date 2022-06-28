@@ -59,8 +59,9 @@ function repeatMultiplydivision(){
             }
         let firarr = arr.splice(firstCaseIndex -1 ,3);
         const [fir, op, la] = firarr
-        if(hasPlusminers()){      
-            arr.push(op === '*' ? fir * la : fir / la);
+        if(hasPlusminers()){
+            result = (op === '*' ? fir * la : fir / la);
+            arr.splice(firstCaseIndex -1, 0, result)
         }else if(hasMultiplydivision()){
           result = (op === '*' ? fir * la : fir / la);
 
@@ -70,7 +71,6 @@ function repeatMultiplydivision(){
             return false
           }else{
             viewResult(result)
-            return false
           }
         }
     }
@@ -93,7 +93,6 @@ function calculatePlusminers(){
         ? cnsctNmbrs.reduce((previousValue,currentValue) => previousValue + currentValue) 
         : cnsctNmbrs.reduce((previousValue,currentValue) => previousValue - currentValue))
         viewResult(result)
-        return false
       }
 }
 
