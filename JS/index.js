@@ -63,12 +63,14 @@ function repeatMultiplydivision(){
             arr.push(op === '*' ? fir * la : fir / la);
         }else if(hasMultiplydivision()){
           result = (op === '*' ? fir * la : fir / la);
-          // 연속곱하기일때 들어가야하는 조건 추가
+
           if(hasMultiplydivision()){
+            multiplydivision.push(result)
             calculateMultiplydivision();
-            // result값과 arr값을 모두 더해주는 코드 추가 reduce
+            return false
           }else{
             viewResult(result)
+            return false
           }
         }
     }
@@ -91,6 +93,7 @@ function calculatePlusminers(){
         ? cnsctNmbrs.reduce((previousValue,currentValue) => previousValue + currentValue) 
         : cnsctNmbrs.reduce((previousValue,currentValue) => previousValue - currentValue))
         viewResult(result)
+        return false
       }
 }
 
@@ -98,9 +101,10 @@ function calculatePlusminers(){
 function calculateMultiplydivision(){
   for(let i = 0; i< arr.length; i++){
     if(arr[i] === '*' || arr[i] === '/'){
-
+      
     }else{
       multiplydivision.push(arr[i])
+      console.log(multiplydivision)
     }
   }
   const findmultiply = arr.findIndex((i) => ['*', '/'].includes(i));
