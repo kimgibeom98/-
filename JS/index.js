@@ -15,6 +15,23 @@ document.addEventListener("keydown", (e) => {
     }
 })
 
+// 마우스 클릭 event
+function cognizeClick(c){
+    
+    // console.log(c)
+    const clickvalue = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '-', '*', '/', '+', '=','.'];
+    const val = clickvalue.find(function (i) {
+      return i === c
+    });
+console.log(val)
+    if(val){
+      result.value += val;
+      result02.value += val;
+      insertKey(val);
+      calculaterResult(val)
+  }
+}
+
 // 화면에 입력값 받아서 띄우기
 function viewResult(to) {
     document.getElementById('result').value = to;
