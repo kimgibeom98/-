@@ -3,7 +3,7 @@ let cnsctNmbrs = [];
 let multiplydivision = []
 
 document.addEventListener("keydown", (e) => {
-    const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', 'Enter'];
+    const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', 'Enter','.'];
     const keye = valuemap.find(function (i) {
       return i === e.key
     });
@@ -64,7 +64,6 @@ function repeatMultiplydivision(){
             arr.splice(firstCaseIndex -1, 0, result)
         }else if(hasMultiplydivision()){
           result = (op === '*' ? fir * la : fir / la);
-
           if(hasMultiplydivision()){
             multiplydivision.push(result)
             calculateMultiplydivision();
