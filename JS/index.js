@@ -17,13 +17,11 @@ document.addEventListener("keydown", (e) => {
 
 // 마우스 클릭 event
 function cognizeClick(c){
-    
-    // console.log(c)
-    const clickvalue = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '-', '*', '/', '+', '=','.'];
+
+    const clickvalue = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', '=','.'];
     const val = clickvalue.find(function (i) {
       return i === c
     });
-console.log(val)
     if(val){
       result.value += val;
       result02.value += val;
@@ -119,7 +117,6 @@ function calculateMultiplydivision(){
       
     }else{
       multiplydivision.push(arr[i])
-      console.log(multiplydivision)
     }
   }
   const findmultiply = arr.findIndex((i) => ['*', '/'].includes(i));
