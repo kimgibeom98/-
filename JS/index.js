@@ -38,7 +38,7 @@ function viewResult(to) {
   
 // 연속된 숫자 및 연산기호 받아서 arr변수에 담기
 function insertKey(keye){
-    if (['-', '*', '/', '+', 'Enter'].includes(keye)) {
+    if (['-', '*', '/', '+', 'Enter','='].includes(keye)) {
         arr.push(Number(cnsctNmbrs.join("")), keye);
         cnsctNmbrs = [];
       }else {
@@ -128,8 +128,9 @@ function calculateMultiplydivision(){
 
 // enter 눌렀을때 연산시작
 function calculaterResult(keye){
-    if(keye === "Enter"){
+    if(keye === "Enter" || keye === "=" ){
         arr.splice(-1,1)
+        console.log(arr);
         repeatMultiplydivision();
     }
 }
