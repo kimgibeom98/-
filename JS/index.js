@@ -134,3 +134,9 @@ function calculaterResult(keye){
         repeatMultiplydivision();
     }
 }
+
+function resetEven(){
+  console.log(123)
+  result.value += '';
+  result02.value += '';
+}
