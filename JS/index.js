@@ -139,7 +139,7 @@ function calculaterResult(keye){
 }
 
 // 화면 초기화
-function resetEven(){
+function resetView(){
   document.getElementById('result02').value = '';
   document.getElementById('result').value = '';
   arr = [];
