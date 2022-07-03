@@ -39,7 +39,7 @@ function viewResult(to) {
   
 // 연속된 숫자 및 연산기호 받아서 arr변수에 담기
 function insertKey(keye){
-    if (['-', '*', '/', '+', 'Enter','='].includes(keye)) {
+    if (['-', '*', '/', '+', 'Enter','=','AC'].includes(keye)) {
         arr.push(Number(cnsctNmbrs.join("")), keye);
         cnsctNmbrs = [];
       }else {
@@ -142,5 +142,5 @@ function resetEven(){
   document.getElementById('result02').value = '';
   document.getElementById('result').value = '';
   arr = [];
-  console.log(arr)
+  cnsctNmbrs = [];
 }
