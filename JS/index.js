@@ -19,7 +19,7 @@ document.addEventListener("keydown", (e) => {
         result02.value += keye;
         insertKey(keye);
         calculaterResult(keye)
-    }else if(entkey){
+    }else{
       insertKey(entkey);
       calculaterResult(entkey)
     }
@@ -30,22 +30,18 @@ document.addEventListener("keydown", (e) => {
 function cognizeClick(c){
 
     const clickvalue = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+','.'];
-    const clickresult = ['='];
+    const clickresult = '=';
     const val = clickvalue.find(function (i) {
       return i === c
     });
-    const valresult = clickresult.find(function (i) {
-      return i === c
-    });
-
     if(val){
       result.value += val;
       result02.value += val;
       insertKey(val);
       calculaterResult(val)
-  }else if(valresult){
-      insertKey(valresult);
-      calculaterResult(valresult)
+  }else{
+      insertKey(clickresult);
+      calculaterResult(clickresult)
   }
 }
 
@@ -62,6 +58,8 @@ function insertKey(keye){
         cnsctNmbrs = [];
       }else {
         cnsctNmbrs.push(keye);
+
+        
       }
 }
 
