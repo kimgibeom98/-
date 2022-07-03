@@ -1,6 +1,7 @@
-const arr =[];
+let arr =[];
 let cnsctNmbrs = [];
 let multiplydivision = []
+let showresult;
 
 document.addEventListener("keydown", (e) => {
     const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', 'Enter','.'];
@@ -75,16 +76,16 @@ function repeatMultiplydivision(){
         let firarr = arr.splice(firstCaseIndex -1 ,3);
         const [fir, op, la] = firarr
         if(hasPlusminers()){
-            result = (op === '*' ? fir * la : fir / la);
-            arr.splice(firstCaseIndex -1, 0, result)
+          showresult = (op === '*' ? fir * la : fir / la);
+            arr.splice(firstCaseIndex -1, 0, showresult)
         }else if(hasMultiplydivision()){
-          result = (op === '*' ? fir * la : fir / la);
+          showresult = (op === '*' ? fir * la : fir / la);
           if(hasMultiplydivision()){
-            multiplydivision.push(result)
+            multiplydivision.push(showresult)
             calculateMultiplydivision();
             return false
           }else{
-            viewResult(result)
+            viewResult(showresult)
           }
         }
     }
@@ -103,10 +104,10 @@ function calculatePlusminers(){
           }
         }
         const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
-        result = (arr[secondCaseIndex] === '+' 
+        showresult = (arr[secondCaseIndex] === '+' 
         ? cnsctNmbrs.reduce((previousValue,currentValue) => previousValue + currentValue) 
         : cnsctNmbrs.reduce((previousValue,currentValue) => previousValue - currentValue))
-        viewResult(result)
+        viewResult(showresult)
       }
 }
 
@@ -120,10 +121,10 @@ function calculateMultiplydivision(){
     }
   }
   const findmultiply = arr.findIndex((i) => ['*', '/'].includes(i));
-  result = (arr[findmultiply] === '*' 
+  showresult = (arr[findmultiply] === '*' 
   ? multiplydivision.reduce((previousValue02,currentValue02) => previousValue02 * currentValue02) 
   : multiplydivision.reduce((previousValue02,currentValue02) => previousValue02 / currentValue02))
-  viewResult(result)
+  viewResult(showresult)
 }
 
 // enter 눌렀을때 연산시작
@@ -135,8 +136,11 @@ function calculaterResult(keye){
     }
 }
 
+// 화면 초기화
 function resetEven(){
-  console.log(123)
-  result.value += '';
-  result02.value += '';
+
+  document.getElementById('result02').value = '';
+  document.getElementById('result').value = '';
+  arr = [];
+  console.log(arr)
 }
