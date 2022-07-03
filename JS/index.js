@@ -4,30 +4,48 @@ let multiplydivision = []
 let showresult;
 
 document.addEventListener("keydown", (e) => {
-    const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', 'Enter','.'];
+    const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+','.'];
+    const entval = ['Enter'];
+
     const keye = valuemap.find(function (i) {
       return i === e.key
     });
+    const entkey = entval.find(function (i) {
+      return i === e.key
+    });
+
     if(keye){
         result.value += keye;
         result02.value += keye;
         insertKey(keye);
         calculaterResult(keye)
+    }else if(entkey){
+      insertKey(entkey);
+      calculaterResult(entkey)
     }
+
 })
 
 // 마우스 클릭 event
 function cognizeClick(c){
 
-    const clickvalue = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', '=','.'];
+    const clickvalue = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+','.'];
+    const clickresult = ['='];
     const val = clickvalue.find(function (i) {
       return i === c
     });
+    const valresult = clickresult.find(function (i) {
+      return i === c
+    });
+
     if(val){
       result.value += val;
       result02.value += val;
       insertKey(val);
       calculaterResult(val)
+  }else if(valresult){
+      insertKey(valresult);
+      calculaterResult(valresult)
   }
 }
 
@@ -103,6 +121,7 @@ function calculatePlusminers(){
           }
         }
         const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
+
         showresult = (arr[secondCaseIndex] === '+' 
         ? cnsctNmbrs.reduce((previousValue,currentValue) => previousValue + currentValue) 
         : cnsctNmbrs.reduce((previousValue,currentValue) => previousValue - currentValue))
