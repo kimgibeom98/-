@@ -22,11 +22,20 @@ document.addEventListener("keydown", (e) => {
     }
       insertKey(keye || entkey);
       calculaterResult(keye || entkey)
+      eraseBackkey(entkey);
 
 })
 
-function eraseBackkey(){
+// backspace 지우기 Even
+function eraseBackkey(entkey){
 
+    let txtvalue = document.getElementById('result').value;
+    let txtvalue02 = document.getElementById('result02').value;
+
+    if(entkey === 'Backspace'){
+        result.value = txtvalue.substr(0, txtvalue.length - 1);
+        result.value02 = txtvalue02.substr(0, txtvalue02.length - 1);
+      }
 }
 
 // 마우스 클릭 event
