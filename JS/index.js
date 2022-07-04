@@ -4,8 +4,9 @@ let multiplydivision = []
 let showresult;
 
 document.addEventListener("keydown", (e) => {
+
     const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+','.'];
-    const entval = ['Enter'];
+    const entval = ['Enter','Backspace'];
 
     const keye = valuemap.find(function (i) {
       return i === e.key
@@ -24,6 +25,9 @@ document.addEventListener("keydown", (e) => {
 
 })
 
+function eraseBackkey(){
+
+}
 
 // 마우스 클릭 event
 function cognizeClick(c){
