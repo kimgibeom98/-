@@ -17,12 +17,9 @@ document.addEventListener("keydown", (e) => {
     if(keye){
         result.value += keye;
         result02.value += keye;
-        insertKey(keye);
-        calculaterResult(keye)
-    }else{
-      insertKey(entkey);
-      calculaterResult(entkey)
     }
+      insertKey(keye || entkey);
+      calculaterResult(keye || entkey)
 
 })
 
@@ -37,12 +34,9 @@ function cognizeClick(c){
     if(val){
       result.value += val;
       result02.value += val;
-      insertKey(val);
-      calculaterResult(val)
-  }else{
-      insertKey(clickresult);
-      calculaterResult(clickresult)
   }
+      insertKey(val || clickresult);
+      calculaterResult(val || clickresult)
 }
 
 // 화면에 입력값 받아서 띄우기
