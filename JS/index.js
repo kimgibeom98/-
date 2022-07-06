@@ -1,14 +1,16 @@
-let arr =[];
-let cnsctNmbrs = [];
-let multiplydivision = []
+const arr =[];
+const cnsctNmbrs = [];
+const multiplydivision = []
 let showresult;
+let keye;
+let val;
 
 document.addEventListener("keydown", (e) => {
 
     const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+','.'];
     const entval = ['Enter','Backspace'];
 
-    const keye = valuemap.find(function (i) {
+    keye = valuemap.find(function (i) {
       return i === e.key
     });
     const entkey = entval.find(function (i) {
@@ -16,7 +18,7 @@ document.addEventListener("keydown", (e) => {
     });
 
     if(keye){
-      render(keye);
+      render();
     }
       insertKey(keye || entkey);
       calculaterResult(keye || entkey);
@@ -29,21 +31,26 @@ function cognizeClick(c){
 
     const clickvalue = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+','.'];
     const clickresult = '=';
-    const val = clickvalue.find(function (i) {
+    val = clickvalue.find(function (i) {
       return i === c
     });
     if(val){
-      render(val)
+      render()
     }
       insertKey(val || clickresult);
       calculaterResult(val || clickresult)
 }
 
 // UI로 보여주는 함수
-function render(keys){
-  result.value += keys;
-  result02.value += keys;
-  
+function render(){
+    // result.value += arr;
+    // result02.value += arr;  
+    console.log(arr)
+    for(let i = 0; i< arr.length; i++){
+      document.getElementById('result').value = arr[i];
+      document.getElementById('result02').value = arr[i];
+    }
+   
 }
 
 // 화면에 입력값 받아서 띄우기
@@ -72,15 +79,16 @@ function eraseBackkey(entkey){
   
 // 연속된 숫자 및 연산기호 받아서 arr변수에 담기
 function insertKey(keye){
-    if (['-', '*', '/', '+', 'Enter','='].includes(keye)) {
+     if(['-', '*', '/', '+', 'Enter','='].includes(keye)) {
         arr.push(Number(cnsctNmbrs.join("")), keye);
-        cnsctNmbrs = [];
+        cnsctNmbrs.splice(0, cnsctNmbrs.length);
       }else {
         cnsctNmbrs.push(keye);
       }
     if(keye === 'Backspace'){
       arr.push(Number(cnsctNmbrs.join("")), keye);
     }
+    render();
 }
 
 // 입력값에 플러스 or 마이너스가 있는지 확인
@@ -149,7 +157,7 @@ function calculatePlusminers(){
         })
         viewResult(showresult)
       }
-      cnsctNmbrs = [];
+      cnsctNmbrs.splice(0, cnsctNmbrs.length );
 }
 
 //곱하기 연산
@@ -176,7 +184,7 @@ function calculaterResult(keye){
     if(keye === "Enter" || keye === "=" ){
         arr.splice(-1,1)
         repeatMultiplydivision();
-        arr = [];
+        arr.splice(0, arr.length);
         cnsctNmbrs.push(showresult);
     
        
@@ -187,6 +195,6 @@ function calculaterResult(keye){
 function resetView(){
   document.getElementById('result02').value = '';
   document.getElementById('result').value = '';
-  arr = [];
-  cnsctNmbrs = [];
+  arr.splice(0, arr.length);
+  cnsctNmbrs.splice(0, cnsctNmbrs.length);
 }
