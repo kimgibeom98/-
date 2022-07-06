@@ -66,6 +66,7 @@ function eraseBackkey(entkey){
       arr.pop();
       console.log( cnsctNmbrs.pop(),cnsctNmbrs);
       console.log( arr.pop(),arr);
+
     }
    
 }
@@ -78,6 +79,9 @@ function insertKey(keye){
       }else {
         cnsctNmbrs.push(keye);
       }
+    if(keye === 'Backspace'){
+      arr.push(Number(cnsctNmbrs.join("")), keye);
+    }
 }
 
 // 입력값에 플러스 or 마이너스가 있는지 확인
