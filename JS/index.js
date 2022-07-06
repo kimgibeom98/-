@@ -33,7 +33,7 @@ function cognizeClick(c){
       return i === c
     });
     if(val){
-      rander(val)
+      render(val)
     }
       insertKey(val || clickresult);
       calculaterResult(val || clickresult)
@@ -43,6 +43,7 @@ function cognizeClick(c){
 function render(keys){
   result.value += keys;
   result02.value += keys;
+  
 }
 
 // 화면에 입력값 받아서 띄우기
