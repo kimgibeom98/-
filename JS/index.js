@@ -66,7 +66,6 @@ function eraseBackkey(entkey){
       arr.pop();
       console.log( cnsctNmbrs.pop(),cnsctNmbrs);
       console.log( arr.pop(),arr);
-
     }
    
 }
@@ -143,9 +142,11 @@ function calculatePlusminers(){
         }
         const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
 
-        showresult = (arr[secondCaseIndex] === '+' 
-        ? cnsctNmbrs.reduce((previousValue,currentValue) => previousValue + currentValue) 
-        : cnsctNmbrs.reduce((previousValue,currentValue) => previousValue - currentValue))
+        showresult = cnsctNmbrs.reduce((acc, cur) => {
+          return arr[secondCaseIndex] === '+'
+          ? acc + cur
+          : acc = cur
+        })
         viewResult(showresult)
       }
       cnsctNmbrs = [];
@@ -161,9 +162,12 @@ function calculateMultiplydivision(){
     }
   }
   const findmultiply = arr.findIndex((i) => ['*', '/'].includes(i));
-  showresult = (arr[findmultiply] === '*' 
-  ? multiplydivision.reduce((previousValue02,currentValue02) => previousValue02 * currentValue02) 
-  : multiplydivision.reduce((previousValue02,currentValue02) => previousValue02 / currentValue02))
+
+  showresult = cnsctNmbrs.reduce((acc, cur) => {
+    return arr[findmultiply] === '*'
+    ? acc * cur
+    : acc / cur
+  })
   viewResult(showresult)
 }
 
