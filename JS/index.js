@@ -22,6 +22,7 @@ document.addEventListener("keydown", (e) => {
     insertKey(e.key);
     calculaterResult(e.key);
     eraseBackkey(e.key);
+    render();
   }
 })
 
@@ -44,28 +45,30 @@ function render(){
 function viewResult(to) {
   document.getElementById('result').value = to;
   history.push(resultnumber)
+  console.log(history)
 }
 
 
 // 연속된 숫자 및 연산기호 받아서 arr변수에 담기
 function insertKey(keye){
       if(valuemap.includes(keye)){
-        history.push(keye); 
+        history.push(keye);
+        console.log(history)
       }
+     
      if(['-', '*', '/', '+','Enter','='].includes(keye)) {
         arr.push(Number(cnsctNmbrs.join("")), keye);
         cnsctNmbrs.splice(0, cnsctNmbrs.length);
       }else {
         cnsctNmbrs.push(keye);
       }
-    if(keye === 'Backspace'){
-      arr.push(Number(cnsctNmbrs.join("")), keye);
-    }
+      if(keye === 'Backspace'){
+        arr.push(Number(cnsctNmbrs.join("")), keye);
+      }
 }
 
 // backspace 지우기 Even
 function eraseBackkey(entkey){
-
   let txtvalue02 = document.getElementById('result02').value;
 
     if(entkey === 'Backspace'){
@@ -73,8 +76,8 @@ function eraseBackkey(entkey){
       history.pop(); 
       cnsctNmbrs.pop();
       arr.pop();
-      console.log( cnsctNmbrs.pop(),cnsctNmbrs);
-      console.log( arr.pop(),arr);
+      cnsctNmbrs.pop()
+      arr.pop()
     }
    
 }
@@ -170,7 +173,8 @@ function calculateMultiplydivision(){
 // enter 눌렀을때 연산시작
 function calculaterResult(keye){
     if(keye === "Enter" || keye === "=" ){
-        history.splice(0, arr.length);
+        history.splice(0, history.length);
+        console.log(history)
         arr.splice(-1,1)
         repeatMultiplydivision();
         
