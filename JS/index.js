@@ -10,6 +10,7 @@ const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/
 const entval = ['Enter','Backspace'];
 const clickresult = '=';
 
+// 키보드 event
 document.addEventListener("keydown", (e) => {
 
   if(valuemap.includes(e.key)){
@@ -29,19 +30,14 @@ function cognizeClick(c){
     val = valuemap.find(function (i) {
       return i === c
     });
-
     insertKey(val || clickresult);
     calculaterResult(val || clickresult)
-    if(val){
-      render()
-    }
-      
+    render()
 }
 
 // UI로 계산식 보여주는 함수
 function render(){
   document.getElementById('result02').value = history.join('');
-
 }
 
 // UI로 결과값 보여주는 함수
@@ -51,13 +47,11 @@ function viewResult(to) {
 }
 
 
-  
 // 연속된 숫자 및 연산기호 받아서 arr변수에 담기
 function insertKey(keye){
       if(valuemap.includes(keye)){
         history.push(keye); 
       }
-    
      if(['-', '*', '/', '+','Enter','='].includes(keye)) {
         arr.push(Number(cnsctNmbrs.join("")), keye);
         cnsctNmbrs.splice(0, cnsctNmbrs.length);
@@ -79,7 +73,6 @@ function eraseBackkey(entkey){
       history.pop(); 
       cnsctNmbrs.pop();
       arr.pop();
-      console.log( history);
       console.log( cnsctNmbrs.pop(),cnsctNmbrs);
       console.log( arr.pop(),arr);
     }
@@ -148,7 +141,7 @@ function calculatePlusminers(){
         resultnumber = cnsctNmbrs.reduce((acc, cur) => {
           return arr[secondCaseIndex] === '+'
           ? acc + cur
-          : acc = cur
+          : acc - cur
         })
         viewResult(resultnumber)
       }
