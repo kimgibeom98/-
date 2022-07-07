@@ -1,8 +1,10 @@
 const arr =[];
 const cnsctNmbrs = [];
-const multiplydivision = []
+const history = [];
+
 let resultnumber;
 let val;
+let reset = '';
 
 const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+','.'];
 const entval = ['Enter','Backspace'];
@@ -27,42 +29,35 @@ function cognizeClick(c){
     val = valuemap.find(function (i) {
       return i === c
     });
+
+    insertKey(val || clickresult);
+    calculaterResult(val || clickresult)
     if(val){
       render()
     }
-      insertKey(val || clickresult);
-      calculaterResult(val || clickresult)
+      
 }
 
-// UI로 보여주는 함수
+// UI로 계산식 보여주는 함수
 function render(){
-      document.getElementById('result02').value = arr.join('');
+  document.getElementById('result02').value = history.join('');
+
 }
 
-// 화면에 입력값 받아서 띄우기
+// UI로 결과값 보여주는 함수
 function viewResult(to) {
   document.getElementById('result').value = to;
+  history.push(resultnumber)
 }
 
-// backspace 지우기 Even
-function eraseBackkey(entkey){
 
-  let txtvalue = document.getElementById('result').value;
-  let txtvalue02 = document.getElementById('result02').value;
-
-  
-    if(entkey === 'Backspace'){
-      result02.value = txtvalue02.substr(0, txtvalue02.length - 1);
-      cnsctNmbrs.pop();
-      arr.pop();
-      console.log( cnsctNmbrs.pop(),cnsctNmbrs);
-      console.log( arr.pop(),arr);
-    }
-   
-}
   
 // 연속된 숫자 및 연산기호 받아서 arr변수에 담기
 function insertKey(keye){
+      if(valuemap.includes(keye)){
+        history.push(keye); 
+      }
+    
      if(['-', '*', '/', '+','Enter','='].includes(keye)) {
         arr.push(Number(cnsctNmbrs.join("")), keye);
         cnsctNmbrs.splice(0, cnsctNmbrs.length);
@@ -72,6 +67,23 @@ function insertKey(keye){
     if(keye === 'Backspace'){
       arr.push(Number(cnsctNmbrs.join("")), keye);
     }
+}
+
+// backspace 지우기 Even
+function eraseBackkey(entkey){
+
+  let txtvalue02 = document.getElementById('result02').value;
+
+    if(entkey === 'Backspace'){
+      result02.value = txtvalue02.substr(0, txtvalue02.length - 1);
+      history.pop(); 
+      cnsctNmbrs.pop();
+      arr.pop();
+      console.log( history);
+      console.log( cnsctNmbrs.pop(),cnsctNmbrs);
+      console.log( arr.pop(),arr);
+    }
+   
 }
 
 // 입력값에 플러스 or 마이너스가 있는지 확인
@@ -109,7 +121,7 @@ function repeatMultiplydivision(){
         }else{
           resultnumber = (op === '*' ? fir * la : fir / la);
           if(hasMultiplydivision()){
-            multiplydivision.push(resultnumber)
+            cnsctNmbrs.push(resultnumber)
             calculateMultiplydivision();
             return false
           }else{
@@ -149,12 +161,12 @@ function calculateMultiplydivision(){
     if(arr[i] === '*' || arr[i] === '/'){
       
     }else{
-      multiplydivision.push(arr[i])
+      cnsctNmbrs.push(arr[i])
     }
   }
   const findmultiply = arr.findIndex((i) => ['*', '/'].includes(i));
 
-  resultnumber = multiplydivision.reduce((acc, cur) => {
+  resultnumber = cnsctNmbrs.reduce((acc, cur) => {
     return arr[findmultiply] === '*'
     ? acc * cur
     : acc / cur
@@ -165,8 +177,10 @@ function calculateMultiplydivision(){
 // enter 눌렀을때 연산시작
 function calculaterResult(keye){
     if(keye === "Enter" || keye === "=" ){
+        history.splice(0, arr.length);
         arr.splice(-1,1)
         repeatMultiplydivision();
+        
         arr.splice(0, arr.length);
         cnsctNmbrs.push(resultnumber);
     }
@@ -174,8 +188,9 @@ function calculaterResult(keye){
 
 // 화면 초기화
 function resetView(){
-  document.getElementById('result02').value = '';
-  document.getElementById('result').value = '';
+  document.getElementById('result02').value = reset;
+  document.getElementById('result').value = reset;
+  history.splice(0, history.length);
   arr.splice(0, arr.length);
   cnsctNmbrs.splice(0, cnsctNmbrs.length);
 }
