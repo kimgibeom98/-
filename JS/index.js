@@ -20,8 +20,8 @@ document.addEventListener("keydown", (e) => {
 
   }else if(entval.includes(e.key)){
     insertKey(e.key);
-    calculaterResult(e.key);
     eraseBackkey(e.key);
+    calculaterResult(e.key);
     render();
   }
 })
@@ -82,20 +82,7 @@ function combineArray(keye){
     }
 }
 
-// backspace 지우기 Even
-function eraseBackkey(entkey){
-  let txtvalue02 = document.getElementById('result02').value;
 
-    if(entkey === 'Backspace'){
-      result02.value = txtvalue02.substr(0, txtvalue02.length - 1);
-      for(let i = 0; i < 2; i++){
-        history.pop();  
-        cnsctNmbrs.pop()
-        arr.pop() 
-      }
-    }
-   
-}
 
 // 입력값에 플러스 or 마이너스가 있는지 확인
 function hasPlusminers(){
@@ -184,6 +171,17 @@ function calculateMultiplydivision(){
   viewResult(resultnumber)
 }
 
+// backspace 지우기 Even
+function eraseBackkey(entkey){
+  if(entkey === 'Backspace'){
+    for(let i = 0; i < 2; i++){
+      history.pop();  
+      cnsctNmbrs.pop()
+      arr.pop() 
+    }
+  }
+}
+
 // enter 눌렀을때 연산시작
 function calculaterResult(keye){
     if(keye === "Enter" || keye === "=" ){
@@ -198,9 +196,9 @@ function calculaterResult(keye){
 
 // 화면 초기화
 function resetView(){
-  document.getElementById('result02').value = reset;
-  document.getElementById('result').value = reset;
   history.splice(0, history.length);
   arr.splice(0, arr.length);
   cnsctNmbrs.splice(0, cnsctNmbrs.length);
+  render();
 }
+
