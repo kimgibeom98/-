@@ -24,6 +24,7 @@ document.addEventListener("keydown", (e) => {
     calculaterResult(e.key);
     render();
   }
+  console.log(history, cnsctNmbrs)
 })
 
 // 마우스 클릭 event
@@ -35,21 +36,22 @@ function cognizeClick(c){
     insertKey(val);
     calculaterResult(val)
     render()
+    console.log(history, cnsctNmbrs)
 }
 
 // UI로 계산식 보여주는 함수
 function render(){
-  // console.log(history)
+
   document.getElementById('result02').value = history.join('');
+  console.log(history, cnsctNmbrs)
 }
 
 // UI로 결과값 보여주는 함수
 function viewResult(to) {
   document.getElementById('result').value = to;
   history.push(resultnumber)
+  console.log(history, cnsctNmbrs)
 }
-
-
 
 // 배열 계산식 보여주는 함수
 function insertKey(keye){
@@ -59,10 +61,11 @@ function insertKey(keye){
           if(oparry.includes(keye)){
             
           }else{
+            console.log(history, cnsctNmbrs)
             combineArray(keye);
           }
         }else{
-         
+          console.log(history, cnsctNmbrs)
           combineArray(keye);
         }
       }
@@ -76,10 +79,12 @@ function combineArray(keye){
       cnsctNmbrs.splice(0, cnsctNmbrs.length);
     }else {
       cnsctNmbrs.push(keye);
+      console.log(cnsctNmbrs)
     }
     if(keye === 'Backspace'){
       arr.push(Number(cnsctNmbrs.join("")), keye);
     }
+    console.log(history, cnsctNmbrs)
 }
 
 
@@ -128,6 +133,7 @@ function repeatMultiplydivision(){
         }
     }
     calculatePlusminers();
+    console.log(history, cnsctNmbrs)
 }
 
 // 더하기 연산
@@ -150,6 +156,7 @@ function calculatePlusminers(){
         viewResult(resultnumber)
       }
       cnsctNmbrs.splice(0, cnsctNmbrs.length );
+      console.log(history, cnsctNmbrs)
 }
 
 //곱하기 연산
@@ -169,6 +176,7 @@ function calculateMultiplydivision(){
     : acc / cur
   })
   viewResult(resultnumber)
+  console.log(history, cnsctNmbrs)
 }
 
 // backspace 지우기 Even
@@ -188,9 +196,10 @@ function calculaterResult(keye){
         history.splice(0, history.length);
         arr.splice(-1,1)
         repeatMultiplydivision();
-        
+        console.log(history, cnsctNmbrs)
         arr.splice(0, arr.length);
         cnsctNmbrs.push(resultnumber);
+        console.log(history, cnsctNmbrs)
     }
 }
 
@@ -200,5 +209,6 @@ function resetView(){
   arr.splice(0, arr.length);
   cnsctNmbrs.splice(0, cnsctNmbrs.length);
   render();
+  console.log(history, cnsctNmbrs)
 }
 
