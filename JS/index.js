@@ -65,6 +65,7 @@ function insertKey(keye){
             combineArray(keye);
           }
         }else{
+          
           console.log(history, cnsctNmbrs)
           combineArray(keye);
         }
@@ -79,7 +80,7 @@ function combineArray(keye){
       cnsctNmbrs.splice(0, cnsctNmbrs.length);
     }else {
       cnsctNmbrs.push(keye);
-      console.log(cnsctNmbrs)
+      console.log(cnsctNmbrs, keye)
     }
     if(keye === 'Backspace'){
       arr.push(Number(cnsctNmbrs.join("")), keye);
