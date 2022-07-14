@@ -25,6 +25,7 @@ document.addEventListener("keydown", (e) => {
     eraseBackkey(e.key);
     calculaterResult(e.key);
     render();
+    console.log(e.key)
   }
 
 })
@@ -65,16 +66,13 @@ function insertKey(keye){
           if(oparry.includes(keye)){
             
           }else{
-            console.log(keye)
-            // console.log(history, cnsctNmbrs)
             combineArray(keye);
           }
         }else{
-          console.log(keye)
-          // console.log(history, cnsctNmbrs)
           combineArray(keye);
         }
       }
+      console.log(e.key)
 }
 
 // 연속된 숫자 및 연산기호 받아서 arr변수에 담는 함수
@@ -85,12 +83,10 @@ function combineArray(keye){
       cnsctNmbrs.splice(0, cnsctNmbrs.length);
     }else {
       cnsctNmbrs.push(keye);
-      console.log(cnsctNmbrs, keye)
     }
     if(keye === 'Backspace'){
       arr.push(Number(cnsctNmbrs.join("")), keye);
     }
-    console.log(history, arr, cnsctNmbrs)
 }
 
 
