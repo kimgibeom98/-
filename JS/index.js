@@ -6,7 +6,6 @@ let resultnumber;
 
 const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+','.'];
 const entval = ['Enter','Backspace','='];
-// const clickresult = '=';
 
 // 키보드 event
 document.addEventListener("keydown", (e) => {
