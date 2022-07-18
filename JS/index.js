@@ -163,11 +163,21 @@ function calculateMultiplydivision(){
 
 // backspace 지우기 Even
 function eraseBackkey(entkey){
+  const symbol = ['-', '*', '/', '+']
   if(entkey === 'Backspace'){
-    for(let i = 0; i < 2; i++){
-      history.pop();  
-      cnsctNmbrs.pop()
-      arr.pop() 
+
+    if(symbol.includes(history[history.length -2])){
+      console.log(arr, cnsctNmbrs, history)
+        history.pop();  
+        cnsctNmbrs.pop();
+        arr.pop(); 
+    }else{
+      for(let i = 0; i < 2; i++){
+        history.pop();  
+        cnsctNmbrs.pop();
+        arr.pop(); 
+      }
+      console.log(arr, cnsctNmbrs, history)
     }
   }
 }
