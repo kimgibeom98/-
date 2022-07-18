@@ -68,9 +68,6 @@ function combineArray(keye){
     }else {
       cnsctNmbrs.push(keye);
     }
-    if(keye === 'Backspace'){
-      arr.push(Number(cnsctNmbrs.join("")), keye);
-    }
 }
 
 
@@ -186,7 +183,7 @@ function eraseBackkey(entkey){
 function calculaterResult(keye){
     if(keye === "Enter" || keye === "=" ){
         history.splice(0, history.length);
-        arr.splice(-1,1)
+        arr.pop()
         repeatMultiplydivision();
         arr.splice(0, arr.length);
         cnsctNmbrs.push(resultnumber);
