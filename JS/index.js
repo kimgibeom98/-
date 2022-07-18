@@ -162,19 +162,15 @@ function calculateMultiplydivision(){
 function eraseBackkey(entkey){
   const symbol = ['-', '*', '/', '+']
   if(entkey === 'Backspace'){
-
     if(symbol.includes(history[history.length -2])){
-      console.log(arr, cnsctNmbrs, history)
         history.pop();  
         cnsctNmbrs.pop();
-        arr.pop(); 
     }else{
       for(let i = 0; i < 2; i++){
         history.pop();  
         cnsctNmbrs.pop();
-        arr.pop(); 
+        console.log(arr, cnsctNmbrs, history) 
       }
-      console.log(arr, cnsctNmbrs, history)
     }
   }
 }
@@ -182,6 +178,7 @@ function eraseBackkey(entkey){
 // enter 눌렀을때 연산시작
 function calculaterResult(keye){
     if(keye === "Enter" || keye === "=" ){
+      console.log(arr)
         history.splice(0, history.length);
         arr.pop()
         repeatMultiplydivision();
