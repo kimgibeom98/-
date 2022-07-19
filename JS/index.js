@@ -4,6 +4,7 @@ const history = [];
 
 let resultnumber;
 
+const oparry = ['-', '*', '/', '+', 'Enter', '=', '.']
 const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', '.'];
 const entval = ['Enter', 'Backspace', '='];
 
@@ -44,7 +45,6 @@ function viewResult(resultvalue) {
 
 // 배열 계산식 보여주는 함수
 function insertKey(keye) {
-  const oparry = ['-', '*', '/', '+', 'Enter', '=', '.']
   if (valuemap.includes(keye) || entval.includes(keye)) {
     oparry.includes(history[history.length - 1])
       ? oparry.includes(keye) ? "" : combineArray(keye)
