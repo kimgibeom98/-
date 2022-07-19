@@ -19,7 +19,7 @@ function cognizeClick(clvalue) {
 
 // 함수 실행
 function executefun(value) {
-  if (valuemap.includes(value) || entval.includes(value)) {
+  if (valuemap.includes(value)) {
     insertKey(value);
     calculaterResult(value);
     render();
@@ -41,7 +41,6 @@ function viewResult(resultvalue) {
   history.push(resultnumber)
   document.getElementById('result').value = resultvalue;
 }
-
 
 // 배열 계산식 보여주는 함수
 function insertKey(keye) {
@@ -94,14 +93,11 @@ function repeatMultiplydivision() {
     }
     let firarr = arr.splice(firstCaseIndex - 1, 3);
     const [fir, op, la] = firarr
-    console.log(arr)
     if (hasPlusminers()) {
       resultnumber = (op === '*' ? fir * la : fir / la);
       arr.splice(firstCaseIndex - 1, 0, resultnumber)
-      console.log(arr)
     } else {
       resultnumber = (op === '*' ? fir * la : fir / la);
-      console.log(resultnumber);
       if (hasMultiplydivision()) {
         cnsctNmbrs.push(resultnumber)
         calculateMultiplydivision();
