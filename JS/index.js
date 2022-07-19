@@ -42,6 +42,7 @@ function viewResult(resultvalue) {
   document.getElementById('result').value = resultvalue;
 }
 
+
 // 배열 계산식 보여주는 함수
 function insertKey(keye) {
   const oparry = ['-', '*', '/', '+', 'Enter', '=', '.']
@@ -185,6 +186,8 @@ function calculaterResult(keye) {
 
 // 화면 초기화
 function resetView() {
+  resultnumber = 0;
+  viewResult(resultnumber);
   history.splice(0, history.length);
   arr.splice(0, arr.length);
   cnsctNmbrs.splice(0, cnsctNmbrs.length);
