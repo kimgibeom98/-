@@ -13,21 +13,20 @@ document.addEventListener("keydown", (e) => {
 })
 
 // 마우스 클릭 event
-function cognizeClick(c){
-    executefun(c);
+function cognizeClick(clvalue){
+    executefun(clvalue);
 }
 
 // 함수 실행
-function executefun(factor){
-    if(valuemap.includes(factor)){
-      insertKey(factor);
-      calculaterResult(factor);
+function executefun(value){
+    if(valuemap.includes(value)){
+      insertKey(value);
+      calculaterResult(value);
       render();
-
-    }else if(entval.includes(factor)){
-      insertKey(factor);
-      eraseBackkey(factor);
-      calculaterResult(factor);
+    }else if(entval.includes(value)){
+      insertKey(value);
+      eraseBackkey(value);
+      calculaterResult(value);
       render();
     }
 }
@@ -38,24 +37,18 @@ function render(){
 }
 
 // UI로 결과값 보여주는 함수
-function viewResult(to) {
+function viewResult(resultvalue) {
   history.push(resultnumber) 
-  document.getElementById('result').value = to;
+  document.getElementById('result').value = resultvalue;
 }
 
 // 배열 계산식 보여주는 함수
 function insertKey(keye){
     const oparry = ['-', '*', '/', '+','Enter','=','.']
       if(valuemap.includes(keye) || entval.includes(keye)){
-        if(oparry.includes(history[history.length -1])){
-          if(oparry.includes(keye)){
-            
-          }else{
-            combineArray(keye);
-          }
-        }else{
-          combineArray(keye);
-        }
+        oparry.includes(history[history.length -1])
+        ? oparry.includes(keye) ? "" : combineArray(keye)
+        : combineArray(keye);
       }
 }
 
@@ -100,11 +93,14 @@ function repeatMultiplydivision(){
             }
         let firarr = arr.splice(firstCaseIndex -1 ,3);
         const [fir, op, la] = firarr
+        console.log(arr)
         if(hasPlusminers()){
             resultnumber = (op === '*' ? fir * la : fir / la);
             arr.splice(firstCaseIndex -1, 0, resultnumber)
+            console.log(arr)
         }else{
           resultnumber = (op === '*' ? fir * la : fir / la);
+          console.log(resultnumber);
           if(hasMultiplydivision()){
             cnsctNmbrs.push(resultnumber)
             calculateMultiplydivision();
@@ -155,6 +151,7 @@ function calculateMultiplydivision(){
     ? acc * cur
     : acc / cur
   })
+  console.log(arr, cnsctNmbrs)
   viewResult(resultnumber)
 }
 
@@ -169,7 +166,6 @@ function eraseBackkey(entkey){
       for(let i = 0; i < 2; i++){
         history.pop();  
         cnsctNmbrs.pop();
-        console.log(arr, cnsctNmbrs, history) 
       }
     }
   }
@@ -178,7 +174,6 @@ function eraseBackkey(entkey){
 // enter 눌렀을때 연산시작
 function calculaterResult(keye){
     if(keye === "Enter" || keye === "=" ){
-      console.log(arr)
         history.splice(0, history.length);
         arr.pop()
         repeatMultiplydivision();
