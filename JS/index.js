@@ -20,7 +20,7 @@ function cognizeClick(clvalue) {
 
 // 함수 실행
 function executefun(value) {
-  if (valuemap.includes(value)) {
+  if (valuemap.includes(value) || entval.includes(value)) {
     insertKey(value);
     calculaterResult(value);
     render();
