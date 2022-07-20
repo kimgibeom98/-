@@ -67,22 +67,11 @@ function combineArray(keye) {
   }
 }
 
-
-// 입력값에 플러스 or 마이너스가 있는지 확인
-function hasPlusminers() {
+// 입력값에 연산자가 있는지 확인
+function hasOperator(opers){
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === '+' || arr[i] === '-') {
+    if (opers.includes(arr[i])) {
       return true;
-    }
-  }
-  return false;
-}
-
-// 입력값에 곱하기 or 나누기가 있는지 확인
-function hasMultiplydivision() {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === '*' || arr[i] === '/') {
-      return true
     }
   }
   return false;
@@ -98,58 +87,74 @@ function repeatMultiplydivision() {
     let firarr = arr.splice(firstCaseIndex - 1, 3);
     const [fir, op, la] = firarr
     resultnumber = (op === '*' ? fir * la : fir / la);
-    if (hasPlusminers()) {
+    if (hasOperator(['+','-'])) {
       arr.splice(firstCaseIndex - 1, 0, resultnumber)
     } else {
-      if (hasMultiplydivision()) {
+      if (hasOperator(['*','/'])) {
         cnsctNmbrs.push(resultnumber)
-        calculateMultiplydivision();
+        // calculateMultiplydivision();
+        calculatePlusminers(['*','/']);
+        console.log(123)
         return false
       } else {
         viewResult(resultnumber)
       }
     }
   }
-  calculatePlusminers();
+  calculatePlusminers(['+','-']);
 }
 
+
 // 더하기 연산
-function calculatePlusminers() {
-  if (hasPlusminers()) {
+function calculatePlusminers(opsymbol) {
+  if (hasOperator(opsymbol)) {
     for (let i = 0; i < arr.length; i++) {
-      if (!['+','-'].includes(arr[i])) {
+      if (!opsymbol.includes(arr[i])) {
         cnsctNmbrs.push(arr[i])
       }
     }
-    const secondCaseIndex = arr.findIndex((i) => ['-', '+'].includes(i));
-
-    resultnumber = cnsctNmbrs.reduce((acc, cur) => {
-      return arr[secondCaseIndex] === '+'
-        ? acc + cur
-        : acc - cur
-    })
+    const secondCaseIndex = arr.findIndex((i) => opsymbol.includes(i));
+    const a = opsymbol;
+    const b =  a;
+    if(a === b){
+      console.log(true)
+      resultnumber = cnsctNmbrs.reduce((acc, cur) => {
+        return arr[secondCaseIndex] === '+'
+          ? acc + cur
+          : acc - cur
+      })
+      cnsctNmbrs.length = 0;
+    }else{
+      resultnumber = cnsctNmbrs.reduce((acc, cur) => {
+        return arr[secondCaseIndex] === '*'
+          ? acc * cur
+          : acc / cur
+      })
+    }
     viewResult(resultnumber)
   }
-  cnsctNmbrs.splice(0, cnsctNmbrs.length);
+  
 }
 
-//곱하기 연산
-function calculateMultiplydivision() {
-  for (let i = 0; i < arr.length; i++) {
-    if (!['*','/'].includes(arr[i])) {
-      cnsctNmbrs.push(arr[i])
-    }
-  }
-  const findmultiply = arr.findIndex((i) => ['*', '/'].includes(i));
+// 곱하기 연산
+// function calculateMultiplydivision() {
+//   if(hasOperator(['*','/'])){
+//     for (let i = 0; i < arr.length; i++) {
+//       if (!['*','/'].includes(arr[i])) {
+//         cnsctNmbrs.push(arr[i])
+//       }
+//     }
+//     const findmultiply = arr.findIndex((i) => ['*', '/'].includes(i));
 
-  resultnumber = cnsctNmbrs.reduce((acc, cur) => {
-    return arr[findmultiply] === '*'
-      ? acc * cur
-      : acc / cur
-  })
-  console.log(arr, cnsctNmbrs)
-  viewResult(resultnumber)
-}
+//     resultnumber = cnsctNmbrs.reduce((acc, cur) => {
+//       return arr[findmultiply] === '*'
+//         ? acc * cur
+//         : acc / cur
+//     })
+//     viewResult(resultnumber)
+//   }
+// }
+
 
 // backspace 지우기 Even
 function eraseBackkey(entkey) {
@@ -187,6 +192,5 @@ function resetView() {
   arr.length = 0;
   cnsctNmbrs.length = 0;
   render();
-
 }
 
