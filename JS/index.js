@@ -170,11 +170,10 @@ function eraseBackkey(entkey) {
 // enter 눌렀을때 연산시작
 function calculaterResult(keye) {
   if (keye === "Enter" || keye === "=") {
-    console.log(arr, history)
-    history.splice(0, history.length);
+    history.length = 0;
     arr.pop()
     repeatMultiplydivision();
-    arr.splice(0, arr.length);
+    arr.length = 0;
     cnsctNmbrs.push(resultnumber);
     event.preventDefault()
   }
@@ -184,9 +183,9 @@ function calculaterResult(keye) {
 function resetView() {
   resultnumber = 0;
   viewResult(resultnumber);
-  history.splice(0, history.length);
-  arr.splice(0, arr.length);
-  cnsctNmbrs.splice(0, cnsctNmbrs.length);
+  history.length = 0;
+  arr.length = 0;
+  cnsctNmbrs.length = 0;
   render();
 
 }
