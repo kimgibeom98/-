@@ -20,15 +20,15 @@ function cognizeClick(clvalue) {
 
 // 함수 실행
 function executefun(value) {
-  if (valuemap.includes(value) || entval.includes(value)) {
-    insertKey(value);
-    calculaterResult(value);
-    render();
-  } else if (entval.includes(value)) {
-    insertKey(value);
-    eraseBackkey(value);
-    calculaterResult(value);
-    render();
+  if([...valuemap, ...entval].includes(value)){
+    if(valuemap.includes(value) || entval.includes(value)){
+      insertKey(value);
+      if(entval.includes(value)){
+        eraseBackkey(value);
+      }
+      calculaterResult(value);
+      render();
+    }
   }
 }
 
@@ -46,9 +46,13 @@ function viewResult(resultvalue) {
 // 배열 계산식 보여주는 함수
 function insertKey(keye) {
   if (valuemap.includes(keye) || entval.includes(keye)) {
-    oparry.includes(history[history.length - 1])
-      ? oparry.includes(keye) ? "" : combineArray(keye)
-      : combineArray(keye);
+    if(oparry.includes(history[history.length - 1])){
+      if(!oparry.includes(keye)){
+        combineArray(keye)
+      }
+    }else{
+      combineArray(keye);
+    }
   }
 }
 
@@ -93,11 +97,10 @@ function repeatMultiplydivision() {
     }
     let firarr = arr.splice(firstCaseIndex - 1, 3);
     const [fir, op, la] = firarr
+    resultnumber = (op === '*' ? fir * la : fir / la);
     if (hasPlusminers()) {
-      resultnumber = (op === '*' ? fir * la : fir / la);
       arr.splice(firstCaseIndex - 1, 0, resultnumber)
     } else {
-      resultnumber = (op === '*' ? fir * la : fir / la);
       if (hasMultiplydivision()) {
         cnsctNmbrs.push(resultnumber)
         calculateMultiplydivision();
@@ -114,9 +117,7 @@ function repeatMultiplydivision() {
 function calculatePlusminers() {
   if (hasPlusminers()) {
     for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === '+' || arr[i] === '-') {
-
-      } else {
+      if (!['+','-'].includes(arr[i])) {
         cnsctNmbrs.push(arr[i])
       }
     }
@@ -135,9 +136,7 @@ function calculatePlusminers() {
 //곱하기 연산
 function calculateMultiplydivision() {
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === '*' || arr[i] === '/') {
-
-    } else {
+    if (!['*','/'].includes(arr[i])) {
       cnsctNmbrs.push(arr[i])
     }
   }
@@ -171,6 +170,7 @@ function eraseBackkey(entkey) {
 // enter 눌렀을때 연산시작
 function calculaterResult(keye) {
   if (keye === "Enter" || keye === "=") {
+    console.log(arr, history)
     history.splice(0, history.length);
     arr.pop()
     repeatMultiplydivision();
