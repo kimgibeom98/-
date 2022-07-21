@@ -39,7 +39,6 @@ function render() {
 
 // UI로 결과값 보여주는 함수
 function viewResult(resultvalue) {
-  history.push(resultnumber)
   document.getElementById('result').value = resultvalue;
 }
 
@@ -92,9 +91,7 @@ function repeatMultiplydivision() {
     } else {
       if (hasOperator(['*','/'])) {
         cnsctNmbrs.push(resultnumber)
-        // calculateMultiplydivision();
         calculatePlusminers(['*','/']);
-        console.log(123)
         return false
       } else {
         viewResult(resultnumber)
@@ -105,7 +102,7 @@ function repeatMultiplydivision() {
 }
 
 
-// 더하기 연산
+// 더하기 or 곱하기 연산
 function calculatePlusminers(opsymbol) {
   if (hasOperator(opsymbol)) {
     for (let i = 0; i < arr.length; i++) {
@@ -114,10 +111,7 @@ function calculatePlusminers(opsymbol) {
       }
     }
     const secondCaseIndex = arr.findIndex((i) => opsymbol.includes(i));
-    const a = opsymbol;
-    const b =  a;
-    if(a === b){
-      console.log(true)
+    if(opsymbol[0] === '+'){
       resultnumber = cnsctNmbrs.reduce((acc, cur) => {
         return arr[secondCaseIndex] === '+'
           ? acc + cur
@@ -132,42 +126,24 @@ function calculatePlusminers(opsymbol) {
       })
     }
     viewResult(resultnumber)
-  }
-  
+  } 
 }
-
-// 곱하기 연산
-// function calculateMultiplydivision() {
-//   if(hasOperator(['*','/'])){
-//     for (let i = 0; i < arr.length; i++) {
-//       if (!['*','/'].includes(arr[i])) {
-//         cnsctNmbrs.push(arr[i])
-//       }
-//     }
-//     const findmultiply = arr.findIndex((i) => ['*', '/'].includes(i));
-
-//     resultnumber = cnsctNmbrs.reduce((acc, cur) => {
-//       return arr[findmultiply] === '*'
-//         ? acc * cur
-//         : acc / cur
-//     })
-//     viewResult(resultnumber)
-//   }
-// }
-
 
 // backspace 지우기 Even
 function eraseBackkey(entkey) {
   const symbol = ['-', '*', '/', '+']
+  console.log(entkey)
   if (entkey === 'Backspace') {
     if (symbol.includes(history[history.length - 2])) {
+      console.log(cnsctNmbrs, history)
       history.pop();
       cnsctNmbrs.pop();
     } else {
-      for (let i = 0; i < 2; i++) {
+      // for (let i = 0; i < 2; i++) {
         history.pop();
         cnsctNmbrs.pop();
-      }
+        console.log(cnsctNmbrs, history)
+      // }
     }
   }
 }
@@ -176,10 +152,11 @@ function eraseBackkey(entkey) {
 function calculaterResult(keye) {
   if (keye === "Enter" || keye === "=") {
     history.length = 0;
-    arr.pop()
+    arr.pop();
     repeatMultiplydivision();
     arr.length = 0;
     cnsctNmbrs.push(resultnumber);
+    history.push(resultnumber);
     event.preventDefault()
   }
 }
