@@ -132,17 +132,14 @@ function calculatePlusminers(opsymbol) {
 // backspace 지우기 Even
 function eraseBackkey(entkey) {
   const symbol = ['-', '*', '/', '+']
-  console.log(entkey)
   if (entkey === 'Backspace') {
     if (symbol.includes(history[history.length - 2])) {
-      console.log(cnsctNmbrs, history)
       history.pop();
       cnsctNmbrs.pop();
     } else {
       for (let i = 0; i < 2; i++) {
         history.pop();
         cnsctNmbrs.pop();
-        console.log(cnsctNmbrs, history)
       }
     }
   }
