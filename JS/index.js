@@ -152,8 +152,14 @@ function calculaterResult(keye) {
     arr.pop();
     repeatMultiplydivision();
     arr.length = 0;
-    cnsctNmbrs.push(resultnumber);
-    history.push(resultnumber);
+    if(resultnumber === 0.30000000000000004){
+      cnsctNmbrs.push(Number(resultnumber).toFixed(1));
+      history.push(Number(resultnumber).toFixed(1));
+      viewResult(Number(resultnumber).toFixed(1))
+    }else{
+      cnsctNmbrs.push(resultnumber);
+      history.push(resultnumber);
+    }
     event.preventDefault()
   }
 }
