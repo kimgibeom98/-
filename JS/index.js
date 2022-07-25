@@ -24,7 +24,7 @@ function executefun(value) {
     if(valuemap.includes(value) || entval.includes(value)){
       insertKey(value);
       if(entval.includes(value)){
-        eraseBackkey(value);
+        deleteElement(value);
       }
       calculaterResult(value);
       render();
@@ -130,17 +130,15 @@ function calculatePlusminers(opsymbol) {
 }
 
 // backspace 지우기 Even
-function eraseBackkey(entkey) {
+function deleteElement(entkey) {
   const symbol = ['-', '*', '/', '+']
   if (entkey === 'Backspace') {
     if (symbol.includes(history[history.length - 2])) {
       history.pop();
       cnsctNmbrs.pop();
     } else {
-      for (let i = 0; i < 2; i++) {
         history.pop();
         cnsctNmbrs.pop();
-      }
     }
   }
 }
@@ -152,13 +150,16 @@ function calculaterResult(keye) {
     arr.pop();
     repeatMultiplydivision();
     arr.length = 0;
-    if(resultnumber === 0.30000000000000004){
+    if(!Number.isInteger(resultnumber)){
       cnsctNmbrs.push(Number(resultnumber).toFixed(1));
       history.push(Number(resultnumber).toFixed(1));
       viewResult(Number(resultnumber).toFixed(1))
+      console.log(arr, cnsctNmbrs)
+      
     }else{
       cnsctNmbrs.push(resultnumber);
       history.push(resultnumber);
+      console.log('정수일때')
     }
     event.preventDefault()
   }
