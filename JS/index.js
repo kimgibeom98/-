@@ -139,11 +139,11 @@ function eraseBackkey(entkey) {
       history.pop();
       cnsctNmbrs.pop();
     } else {
-      // for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 2; i++) {
         history.pop();
         cnsctNmbrs.pop();
         console.log(cnsctNmbrs, history)
-      // }
+      }
     }
   }
 }
