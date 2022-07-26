@@ -23,10 +23,6 @@ function executefun(value) {
   if([...valuemap, ...entval].includes(value)){
     if(valuemap.includes(value) || entval.includes(value)){
       insertKey(value);
-      if(entval.includes(value)){
-        deleteElement(value);
-      }
-      calculaterResult(value);
       render();
     }
   }
@@ -34,6 +30,7 @@ function executefun(value) {
 
 // UI로 계산식 보여주는 함수
 function render() {
+  console.log(arr, cnsctNmbrs, history)
   document.getElementById('result02').value = history.join('');
 }
 
@@ -57,14 +54,22 @@ function insertKey(keye) {
 
 // 연속된 숫자 및 연산기호 받아서 arr변수에 담는 함수
 function combineArray(keye) {
-  history.push(keye);
-  if (['-', '*', '/', '+', 'Enter', '='].includes(keye)) {
+  if(["Enter", "="].includes(keye)){
     arr.push(Number(cnsctNmbrs.join("")), keye);
     cnsctNmbrs.splice(0, cnsctNmbrs.length);
-  } else {
-    cnsctNmbrs.push(keye);
+    calculaterResult();
+  }else if("Backspace" === keye){
+    deleteElement();
+  }else{
+    history.push(keye);
+    if (['-', '*', '/', '+'].includes(keye)){
+      arr.push(Number(cnsctNmbrs.join("")), keye);
+      cnsctNmbrs.splice(0, cnsctNmbrs.length);
+    } else {
+      cnsctNmbrs.push(keye);
+    }
   }
-}
+  }
 
 // 입력값에 연산자가 있는지 확인
 function hasOperator(opers){
@@ -126,43 +131,33 @@ function calculatePlusminers(opsymbol) {
       })
     }
     viewResult(resultnumber)
-  } 
-}
-
-// backspace 지우기 Even
-function deleteElement(entkey) {
-  const symbol = ['-', '*', '/', '+']
-  if (entkey === 'Backspace') {
-    if (symbol.includes(history[history.length - 2])) {
-      history.pop();
-      cnsctNmbrs.pop();
-    } else {
-        history.pop();
-        cnsctNmbrs.pop();
-    }
   }
 }
 
+// backspace 지우기 Even
+function deleteElement() {
+  const symbol = ['-', '*', '/', '+']
+    if (!symbol.includes(history[history.length - 1])) {
+      history.pop();
+      cnsctNmbrs.pop();
+    }
+}
+
 // enter 눌렀을때 연산시작
-function calculaterResult(keye) {
-  if (keye === "Enter" || keye === "=") {
+function calculaterResult() {
     history.length = 0;
     arr.pop();
     repeatMultiplydivision();
     arr.length = 0;
-    if(!Number.isInteger(resultnumber)){
+    if(isNaN(resultnumber) == false && Number.isInteger(resultnumber)==false){    
       cnsctNmbrs.push(Number(resultnumber).toFixed(1));
       history.push(Number(resultnumber).toFixed(1));
-      viewResult(Number(resultnumber).toFixed(1))
-      console.log(arr, cnsctNmbrs)
-      
+      viewResult(Number(resultnumber).toFixed(1));
     }else{
       cnsctNmbrs.push(resultnumber);
       history.push(resultnumber);
-      console.log('정수일때')
     }
     event.preventDefault()
-  }
 }
 
 // 화면 초기화
