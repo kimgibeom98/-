@@ -30,7 +30,6 @@ function executefun(value) {
 
 // UI로 계산식 보여주는 함수
 function render() {
-  console.log(arr, cnsctNmbrs, history)
   document.getElementById('result02').value = history.join('');
 }
 
@@ -54,20 +53,19 @@ function insertKey(keye) {
 
 // 연속된 숫자 및 연산기호 받아서 arr변수에 담는 함수
 function combineArray(keye) {
-  if(["Enter", "="].includes(keye)){
+  if (['-', '*', '/', '+','Enter','='].includes(keye)){
     arr.push(Number(cnsctNmbrs.join("")), keye);
     cnsctNmbrs.splice(0, cnsctNmbrs.length);
-    calculaterResult();
+    if(["Enter", "="].includes(keye)){
+      calculaterResult();
+    }else{
+      history.push(keye);
+    }
   }else if("Backspace" === keye){
     deleteElement();
   }else{
     history.push(keye);
-    if (['-', '*', '/', '+'].includes(keye)){
-      arr.push(Number(cnsctNmbrs.join("")), keye);
-      cnsctNmbrs.splice(0, cnsctNmbrs.length);
-    } else {
-      cnsctNmbrs.push(keye);
-    }
+    cnsctNmbrs.push(keye);
   }
   }
 
@@ -149,7 +147,7 @@ function calculaterResult() {
     arr.pop();
     repeatMultiplydivision();
     arr.length = 0;
-    if(isNaN(resultnumber) == false && Number.isInteger(resultnumber)==false){    
+    if(!isNaN(resultnumber) && !Number.isInteger(resultnumber)){    
       cnsctNmbrs.push(Number(resultnumber).toFixed(1));
       history.push(Number(resultnumber).toFixed(1));
       viewResult(Number(resultnumber).toFixed(1));
