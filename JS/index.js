@@ -4,7 +4,7 @@ const history = [];
 
 let resultnumber;
 
-const oparry = ['-', '*', '/', '+', 'Enter', '=', '.']
+const oparry = ['-', '*', '/', '+']
 const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', '.'];
 const entval = ['Enter', 'Backspace', '='];
 
@@ -22,25 +22,24 @@ function cognizeClick(clvalue) {
 function executefun(value) {
   if([...valuemap, ...entval].includes(value)){
     if(valuemap.includes(value) || entval.includes(value)){
-      insertKey(value);
-      render();
-    }
+    insertKey(value);
+    render();
+  }
   }
 }
 
 // UI로 계산식 보여주는 함수
 function render() {
-  document.getElementById('result02').value = history.join('');
+    document.getElementById('result02').value = history.join('');
 }
 
 // UI로 결과값 보여주는 함수
 function viewResult(resultvalue) {
-  document.getElementById('result').value = resultvalue;
+    document.getElementById('result').value = resultvalue;
 }
 
-// 배열 계산식 보여주는 함수
+// 연산기호 연속입력 막는 함수
 function insertKey(keye) {
-  if (valuemap.includes(keye) || entval.includes(keye)) {
     if(oparry.includes(history[history.length - 1])){
       if(!oparry.includes(keye)){
         combineArray(keye)
@@ -48,26 +47,24 @@ function insertKey(keye) {
     }else{
       combineArray(keye);
     }
-  }
 }
 
-// 연속된 숫자 및 연산기호 받아서 arr변수에 담는 함수
+// 입력한 값에따라 그에 맞는 함수실행
 function combineArray(keye) {
-  if (['-', '*', '/', '+','Enter','='].includes(keye)){
-    arr.push(Number(cnsctNmbrs.join("")), keye);
-    cnsctNmbrs.splice(0, cnsctNmbrs.length);
     if(["Enter", "="].includes(keye)){
       calculaterResult();
+    }else if("Backspace" === keye){
+      deleteElement();
     }else{
       history.push(keye);
+      if(oparry.includes(keye)){
+        arr.push(Number(cnsctNmbrs.splice(0, cnsctNmbrs.length).join("")), keye);
+      }else{
+        cnsctNmbrs.push(keye)
+      }
     }
-  }else if("Backspace" === keye){
-    deleteElement();
-  }else{
-    history.push(keye);
-    cnsctNmbrs.push(keye);
   }
-  }
+  
 
 // 입력값에 연산자가 있는지 확인
 function hasOperator(opers){
@@ -81,7 +78,7 @@ function hasOperator(opers){
 
 // 곱하기 우선 연산 및 곱하기연산
 function repeatMultiplydivision() {
-  while (true) {
+  while (true){
     const firstCaseIndex = arr.findIndex((i) => ['*', '/'].includes(i))
     if (firstCaseIndex === -1) {
       break;
@@ -102,6 +99,7 @@ function repeatMultiplydivision() {
     }
   }
   calculatePlusminers(['+','-']);
+  arr.length = 0;
 }
 
 
@@ -132,10 +130,9 @@ function calculatePlusminers(opsymbol) {
   }
 }
 
-// backspace 지우기 Even
+// backspace 지우기
 function deleteElement() {
-  const symbol = ['-', '*', '/', '+']
-    if (!symbol.includes(history[history.length - 1])) {
+    if (!oparry.includes(history[history.length - 1])) {
       history.pop();
       cnsctNmbrs.pop();
     }
@@ -143,17 +140,14 @@ function deleteElement() {
 
 // enter 눌렀을때 연산시작
 function calculaterResult() {
+    arr.push(Number(cnsctNmbrs.splice(0,cnsctNmbrs.length).join("")));
     history.length = 0;
-    arr.pop();
     repeatMultiplydivision();
-    arr.length = 0;
-    if(!isNaN(resultnumber) && !Number.isInteger(resultnumber)){    
-      cnsctNmbrs.push(Number(resultnumber).toFixed(1));
-      history.push(Number(resultnumber).toFixed(1));
+    const availNumber = !isNaN(resultnumber) && !Number.isInteger(resultnumber);
+    cnsctNmbrs.push(availNumber ? Number(resultnumber).toFixed(1) : resultnumber);
+    history.push(availNumber ?  Number(resultnumber).toFixed(1) : resultnumber);
+    if(availNumber){
       viewResult(Number(resultnumber).toFixed(1));
-    }else{
-      cnsctNmbrs.push(resultnumber);
-      history.push(resultnumber);
     }
     event.preventDefault()
 }
