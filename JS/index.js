@@ -20,12 +20,10 @@ function cognizeClick(clvalue) {
 
 // 함수 실행
 function executefun(value) {
-  if([...valuemap, ...entval].includes(value)){
     if(valuemap.includes(value) || entval.includes(value)){
-    insertKey(value);
-    render();
-  }
-  }
+      insertKey(value);
+      render();
+    }
 }
 
 // UI로 계산식 보여주는 함수
