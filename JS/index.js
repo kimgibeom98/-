@@ -77,7 +77,6 @@ function hasOperator(opers){
 // 곱하기 우선 연산 및 곱하기연산
 function repeatMultiplydivision() {
   while (true){
-    // console.log(arr)
     const firstCaseIndex = arr.findIndex((i) => ['*', '/'].includes(i))
     if (firstCaseIndex === -1) {
       break;
@@ -85,7 +84,7 @@ function repeatMultiplydivision() {
     let firarr = arr.splice(firstCaseIndex - 1, 3);
     const [fir, op, la] = firarr
     resultnumber = (op === '*' ? fir * la : fir / la);
-    console.log(arr)
+   
     if (hasOperator(['+','-'])) {
       arr.splice(firstCaseIndex - 1, 0, resultnumber)
     } else {
@@ -95,11 +94,27 @@ function repeatMultiplydivision() {
         return false
       } else {
         viewResult(resultnumber)
+        return false
       }
     }
   }
-  calculatePlusminers(['+','-']);
-  arr.length = 0;
+  while (true){
+    const firstCaseIndex = arr.findIndex((i) => ['+', '-'].includes(i))
+    if (firstCaseIndex === -1) {
+      break;
+    }
+    let firarr = arr.splice(firstCaseIndex - 1, 3);
+    const [fir, op, la] = firarr
+    resultnumber = (op === '+' ? fir + la : fir - la);
+      if (hasOperator(['+','-'])) {
+        cnsctNmbrs.push(resultnumber)
+        calculatePlusminers(['+','-']);
+        return false
+      } else {
+        viewResult(resultnumber)
+        return false
+      }
+  }
 }
 
 
@@ -140,14 +155,17 @@ function deleteElement() {
 
 // enter 눌렀을때 연산시작
 function calculaterResult() {
+ 
     arr.push(Number(cnsctNmbrs.splice(0,cnsctNmbrs.length).join("")));
     history.length = 0;
     repeatMultiplydivision();
+    arr.length = 0;
     const availNumber = !isNaN(resultnumber) && !Number.isInteger(resultnumber);
     cnsctNmbrs.push(availNumber ? Number(resultnumber).toFixed(1) : resultnumber);
     history.push(availNumber ?  Number(resultnumber).toFixed(1) : resultnumber);
     viewResult(availNumber ?  Number(resultnumber).toFixed(1) : resultnumber);
     event.preventDefault()
+
 }
 
 // 화면 초기화
