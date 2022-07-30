@@ -98,6 +98,7 @@ function repeatMultiplydivision() {
       }
     }
   }
+
   while (true){
     const firstCaseIndex = arr.findIndex((i) => ['+', '-'].includes(i))
     if (firstCaseIndex === -1) {
