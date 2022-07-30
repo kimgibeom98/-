@@ -76,48 +76,44 @@ function hasOperator(opers){
 
 // 곱하기 우선 연산 및 곱하기연산
 function repeatMultiplydivision() {
+  // 곱셈나눗셈, 덧셈뺄셈 섞인연산
   while (true){
     const firstCaseIndex = arr.findIndex((i) => ['*', '/'].includes(i))
     if (firstCaseIndex === -1) {
       break;
     }
-    let firarr = arr.splice(firstCaseIndex - 1, 3);
-    const [fir, op, la] = firarr
-    resultnumber = (op === '*' ? fir * la : fir / la);
-   
+    const [fir, op, la] = arr.splice(firstCaseIndex - 1, 3);
+    resultnumber = op === '*' ? fir * la : fir / la;
     if (hasOperator(['+','-'])) {
       arr.splice(firstCaseIndex - 1, 0, resultnumber)
-    } else {
+    } else{
       if (hasOperator(['*','/'])) {
         cnsctNmbrs.push(resultnumber)
         calculatePlusminers(['*','/']);
-        return false
-      } else {
+       } else {
         viewResult(resultnumber)
-        return false
       }
+      return
     }
   }
 
+  // 더하기뺴기만 있는연산
   while (true){
     const firstCaseIndex = arr.findIndex((i) => ['+', '-'].includes(i))
     if (firstCaseIndex === -1) {
       break;
     }
-    let firarr = arr.splice(firstCaseIndex - 1, 3);
-    const [fir, op, la] = firarr
-    resultnumber = (op === '+' ? fir + la : fir - la);
+    const [fir, op, la] = arr.splice(firstCaseIndex - 1, 3);
+    resultnumber = op === '+' ? fir + la : fir - la;
       if (hasOperator(['+','-'])) {
         cnsctNmbrs.push(resultnumber)
         calculatePlusminers(['+','-']);
-        return false
       } else {
         viewResult(resultnumber)
-        return false
       }
+      return
   }
 }
-
 
 // 더하기 or 곱하기 연산
 function calculatePlusminers(opsymbol) {
@@ -178,4 +174,3 @@ function resetView() {
   cnsctNmbrs.length = 0;
   render();
 }
-
