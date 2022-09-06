@@ -1,109 +1,177 @@
-let cursorx;
-let cursory;
-let isDragging;
-let findX;
-let findY;
-let count = 0;
-const data = JSON.parse(localStorage.getItem('stickynote')) ?? [];
+const arr = [];
+const cnsctNmbrs = [];
+const history = [];
 
-function render(){
+let resultnumber;
 
-  document.querySelector('body').innerHTML = data.map((content) => `<div class="note-box" data-index=${content.indexnum} style="left:${content.left};  top:${content.top}"><div class="move-box"></div><button class="clost-btn">X</button><textarea placeholder="메모를입력하세요..." class="content-box" style="width:${content.width}px; height:${content.height}px;">${content.textbox}</textarea></div>`);
-  console.log(data)
+const oparry = ['-', '*', '/', '+']
+const valuemap = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", '-', '*', '/', '+', '.'];
+const entval = ['Enter', 'Backspace', '='];
 
+// 키보드 event
+document.addEventListener("keydown", (e) => {
+  executefun(e.key);
+})
+
+// 마우스 클릭 event
+function cognizeClick(clvalue) {
+  executefun(clvalue);
 }
 
-function onMousedown(event) {
-  if (event.button == 2) {
+// 함수 실행
+function executefun(value) {
+    if(valuemap.includes(value) || entval.includes(value)){
+      insertKey(value);
+      render();
+    }
+}
 
-    count =  JSON.parse(localStorage.getItem('indexNumber')) ?? 0;
-    data.push({width : 200, height : 116, left : cursorx, top : cursory, indexnum : count, textbox : ''})
-    render();
-    count ++;
-    localStorage.setItem("indexNumber", JSON.stringify(count));
+// UI로 계산식 보여주는 함수
+function render() {
+    document.getElementById('result02').value = history.join('');
+}
 
-  } else if (event.target.getAttribute('class') === 'clost-btn') {
+// UI로 결과값 보여주는 함수
+function viewResult(resultvalue) {
+    document.getElementById('result').value = resultvalue;
+}
 
-    const eventindex = Number(event.target.parentNode.dataset.index);
-    for(let i = 0; i < data.length; i++){  
-      if (data[i].indexnum === eventindex) { 
-        data.splice(i, 1); 
-        i--; 
+// 연산기호 연속입력 막는 함수
+function insertKey(keye) {
+    if(oparry.includes(history[history.length - 1])){
+      if(!oparry.includes(keye)){
+        combineArray(keye)
+      }
+    }else{
+      combineArray(keye);
+    }
+}
+
+// 입력한 값에따라 그에 맞는 함수실행
+function combineArray(keye) {
+    if(["Enter", "="].includes(keye)){
+      calculaterResult();
+    }else if("Backspace" === keye){
+      deleteElement();
+    }else{
+      history.push(keye);
+      if(oparry.includes(keye)){
+        arr.push(Number(cnsctNmbrs.splice(0, cnsctNmbrs.length).join("")), keye);
+      }else{
+        cnsctNmbrs.push(keye)
       }
     }
-    localStorage.setItem("stickynote", JSON.stringify(data));
-    render();
-    if(data.length === 0){
-      count == 0;
-      localStorage.setItem("indexNumber", JSON.stringify(count));
-    }
-
-  } else if (event.button === 0 && event.target.getAttribute('class') === 'move-box') {
-
-    findX = event.pageX - event.target.parentNode.getBoundingClientRect().x;
-    findY = event.pageY - event.target.parentNode.getBoundingClientRect().y;
-    isDragging = true
-    document.body.append(event.target.parentNode);
-    
   }
-  localStorage.setItem("stickynote", JSON.stringify(data));
-}
-
-function onMouseup(event){
-  isDragging = false
-  if (event.button === 0 && event.target.getAttribute('class') === 'content-box') {
-
-    document.body.append(event.target.parentNode);
-    event.target.focus();
-    const targetIndex = Number(event.target.parentNode.dataset.index)
-    const targetValue = event.target.value; 
-    const chagedata = {width : event.target.offsetWidth, height : event.target.offsetHeight, left : event.target.parentNode.getBoundingClientRect().x + 'px', top : event.target.parentNode.getBoundingClientRect().y + 'px', indexnum : targetIndex,  textbox : targetValue}
-    data.splice(targetIndex, 1, chagedata)
-
-  }else if(event.button === 0 && event.target.getAttribute('class') === 'move-box'){
-
-    const targetIndex = Number(event.target.parentNode.dataset.index)
-    const targetNote = event.target.nextSibling.nextSibling;
-    const targetValue = event.target.nextSibling.nextSibling.value; 
-    const chagedata = {width : targetNote.offsetWidth, height : targetNote.offsetHeight, left : event.target.parentNode.getBoundingClientRect().x + 'px', top : event.target.parentNode.getBoundingClientRect().y + 'px', indexnum : targetIndex,  textbox : targetValue}
-    data.splice(targetIndex, 1, chagedata)
-    console.log(chagedata)
-
-  }
-  localStorage.setItem("stickynote", JSON.stringify(data));
-}
-
-function onMousemove(event){
-
-  const movetarget = document.querySelector('body > div:last-of-type');
-  cursorx = `${event.pageX}px`;
-  cursory = `${event.pageY}px`;
-  if (isDragging) {
-    movetarget.style.top = `${event.pageY - findY - 8}px`;
-    movetarget.style.left = `${event.pageX - findX - 8}px`;
-  }
-  localStorage.setItem("stickynote", JSON.stringify(data));
   
-}
 
-function onKeyup(event){
-
-  let tareetValue;
-  if(event.target.getAttribute('class') === 'content-box'){
-    const targetIndex = Number(event.target.parentNode.dataset.index)
-    tareetValue = event.target.value 
-    const chagedata = {width : event.target.offsetWidth, height : event.target.offsetHeight, left : event.target.parentNode.getBoundingClientRect().left + 'px', top : event.target.parentNode.getBoundingClientRect().top + 'px', indexnum : targetIndex,  textbox : tareetValue}
-    data.splice(targetIndex, 1, chagedata)
+// 입력값에 연산자가 있는지 확인
+function hasOperator(opers){
+  for (let i = 0; i < arr.length; i++) {
+    if (opers.includes(arr[i])) {
+      return true;
+    }
   }
-  localStorage.setItem("stickynote", JSON.stringify(data));
-  console.log(data)
+  return false;
+}
+
+// 곱하기 우선 연산 및 곱하기연산
+function repeatMultiplydivision() {
+  // 곱셈나눗셈, 덧셈뺄셈 섞인연산
+  while (true){
+    const firstCaseIndex = arr.findIndex((i) => ['*', '/'].includes(i))
+    console.log(firstCaseIndex)
+    if (firstCaseIndex === -1) {
+      break;
+    }
+    const [fir, op, la] = arr.splice(firstCaseIndex - 1, 3);
+    resultnumber = op === '*' ? fir * la : fir / la;
+    if (hasOperator(['+','-'])) {
+      arr.splice(firstCaseIndex - 1, 0, resultnumber)
+    } else{
+      if (hasOperator(['*','/'])) {
+        cnsctNmbrs.push(resultnumber)
+        calculatePlusminers(['*','/']);
+       } else {
+        viewResult(resultnumber)
+      }
+      return
+    }
+  }
+
+  // 더하기뺴기만 있는연산
+  while (true){
+    const firstCaseIndex = arr.findIndex((i) => ['+', '-'].includes(i))
+    if (firstCaseIndex === -1) {
+      break;
+    }
+    const [fir, op, la] = arr.splice(firstCaseIndex - 1, 3);
+    resultnumber = op === '+' ? fir + la : fir - la;
+      if (hasOperator(['+','-'])) {
+        cnsctNmbrs.push(resultnumber)
+        calculatePlusminers(['+','-']);
+      } else {
+        viewResult(resultnumber)
+      }
+      return
+  }
+}
+
+// 더하기 or 곱하기 연산
+function calculatePlusminers(opsymbol) {
+  if (hasOperator(opsymbol)) {
+    for (let i = 0; i < arr.length; i++) {
+      if (!opsymbol.includes(arr[i])) {
+        cnsctNmbrs.push(arr[i])
+      }
+    }
+    const secondCaseIndex = arr.findIndex((i) => opsymbol.includes(i));
+    if(opsymbol[0] === '+'){
+      resultnumber = cnsctNmbrs.reduce((acc, cur) => {
+        return arr[secondCaseIndex] === '+'
+          ? acc + cur
+          : acc - cur
+      })
+      cnsctNmbrs.length = 0;
+    }else{
+      resultnumber = cnsctNmbrs.reduce((acc, cur) => {
+        return arr[secondCaseIndex] === '*'
+          ? acc * cur
+          : acc / cur
+      })
+    }
+    viewResult(resultnumber)
+  }
+}
+
+// backspace 지우기
+function deleteElement() {
+    if (!oparry.includes(history[history.length - 1])) {
+      history.pop();
+      cnsctNmbrs.pop();
+    }
+}
+
+// enter 눌렀을때 연산시작
+function calculaterResult() {
+ 
+    arr.push(Number(cnsctNmbrs.splice(0,cnsctNmbrs.length).join("")));
+    history.length = 0;
+    repeatMultiplydivision();
+    arr.length = 0;
+    const availNumber = !isNaN(resultnumber) && !Number.isInteger(resultnumber);
+    cnsctNmbrs.push(availNumber ? Number(resultnumber).toFixed(1) : resultnumber);
+    history.push(availNumber ?  Number(resultnumber).toFixed(1) : resultnumber);
+    viewResult(availNumber ?  Number(resultnumber).toFixed(1) : resultnumber);
+    event.preventDefault()
 
 }
 
-render();
-
-document.addEventListener('contextmenu', (event) => {event.preventDefault();});
-document.addEventListener('mousedown', onMousedown);
-document.addEventListener('mouseup', onMouseup);
-document.addEventListener('mousemove', onMousemove);
-document.addEventListener('keyup', onKeyup);
+// 화면 초기화
+function resetView() {
+  resultnumber = 0;
+  viewResult(resultnumber);
+  history.length = 0;
+  arr.length = 0;
+  cnsctNmbrs.length = 0;
+  render();
+}
