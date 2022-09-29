@@ -20,7 +20,7 @@ function cognizeClick(clvalue) {
 
 // 함수 실행
 function executefun(value) {
-    if(valuemap.includes(value) || entval.includes(value)){
+    if (valuemap.includes(value) || entval.includes(value)) {
       insertKey(value);
       render();
     }
@@ -38,26 +38,26 @@ function viewResult(resultvalue) {
 
 // 연산기호 연속입력 막는 함수
 function insertKey(keye) {
-    if(oparry.includes(history[history.length - 1])){
-      if(!oparry.includes(keye)){
+    if (oparry.includes(history[history.length - 1])) {
+      if (!oparry.includes(keye)) {
         combineArray(keye)
       }
-    }else{
+    } else {
       combineArray(keye);
     }
 }
 
 // 입력한 값에따라 그에 맞는 함수실행
 function combineArray(keye) {
-    if(["Enter", "="].includes(keye)){
+    if (["Enter", "="].includes(keye)) {
       calculaterResult();
-    }else if("Backspace" === keye){
+    } else if ("Backspace" === keye){
       deleteElement();
-    }else{
+    } else {
       history.push(keye);
-      if(oparry.includes(keye)){
+      if (oparry.includes(keye)) {
         arr.push(Number(cnsctNmbrs.splice(0, cnsctNmbrs.length).join("")), keye);
-      }else{
+      } else {
         cnsctNmbrs.push(keye)
       }
     }
@@ -87,7 +87,7 @@ function repeatMultiplydivision() {
     resultnumber = op === '*' ? fir * la : fir / la;
     if (hasOperator(['+','-'])) {
       arr.splice(firstCaseIndex - 1, 0, resultnumber)
-    } else{
+    } else {
       if (hasOperator(['*','/'])) {
         cnsctNmbrs.push(resultnumber)
         calculatePlusminers(['*','/']);
@@ -125,14 +125,14 @@ function calculatePlusminers(opsymbol) {
       }
     }
     const secondCaseIndex = arr.findIndex((i) => opsymbol.includes(i));
-    if(opsymbol[0] === '+'){
+    if (opsymbol[0] === '+') {
       resultnumber = cnsctNmbrs.reduce((acc, cur) => {
         return arr[secondCaseIndex] === '+'
           ? acc + cur
           : acc - cur
       })
       cnsctNmbrs.length = 0;
-    }else{
+    } else {
       resultnumber = cnsctNmbrs.reduce((acc, cur) => {
         return arr[secondCaseIndex] === '*'
           ? acc * cur
