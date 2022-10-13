@@ -79,7 +79,6 @@ function repeatMultiplydivision() {
   // 곱셈나눗셈, 덧셈뺄셈 섞인연산
   while (true){
     const firstCaseIndex = arr.findIndex((i) => ['*', '/'].includes(i))
-    console.log(firstCaseIndex)
     if (firstCaseIndex === -1) {
       break;
     }
